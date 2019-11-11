@@ -1,0 +1,38 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:tnt="sap.tnt"
+  xmlns:l="sap.ui.layout"
+  controllerName="UI5toLearn.controller.DeleteTenant" width="100%" height="100%"
+  displayBlock="true">
+
+  <tnt:ToolPage id="deleteTenant" class="pageCreateTenant">
+    <tnt:header>
+      <tnt:ToolHeader class="customHeader">
+        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+        <Text text="Удалить арендатора" class="customHeaderText" />
+      </tnt:ToolHeader>
+    </tnt:header>
+
+    <tnt:mainContents>
+
+      <l:VerticalLayout class="verLayCreateTenant">
+        <l:HorizontalLayout>
+          <Label text="Номер счетчика"/>
+          <Input id="counter" value="{/tenants/counter}"/>
+        </l:HorizontalLayout>
+      </l:VerticalLayout>
+
+      <l:VerticalLayout class="verLayCreateTenantBtn">
+        <Button text="Удалить" press="onDeleteTenant" class="customBtnAccept"/>
+      </l:VerticalLayout>
+
+    </tnt:mainContents>
+  </tnt:ToolPage>
+
+</mvc:View>

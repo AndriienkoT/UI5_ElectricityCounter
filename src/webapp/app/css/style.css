@@ -1,219 +1,149 @@
-/*General*/
-.customHeader.sapContrast.sapTntToolHeader.sapMTB {
-  background-color: #d1e0ee;
-  border: 1px solid #d1e0ee;
-}
-.customHeaderText.sapMText {
-  font-family: Calibri;
+/*Header*/
+.customHeader .sapMText {
   font-size: 1.3rem;
+}
+.customHeader.sapContrast.sapTntToolHeader.sapMTB, .customHeader.sapContrast .sapTntToolHeader.sapMTB {
+  background-color: steelblue;
+  border-color: steelblue;
+}
+.horLayMainTitle .sapUiHLayoutChildWrapper, .horLayMainTitle .sapMText {
+  width: 100%;
+}
+.customHeader .customHeaderText {
+  position: absolute;
+  vertical-align: middle;
   text-align: center !important;
-  width: calc(100% - 16px);
+  margin-top: 10px !important;
+  right: 0;
+  min-height: 50px;
+  width: calc(100% - 48px);
+}
+html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, html.sap-desktop .sapContrast.customHeaderIcon.sapMBtn:focus>.sapMFocusable {
+  outline: none;
+}
+
+/*Accept button*/
+.customBtnAccept.sapMBtn {
+  width: 400px;
+}
+.customBtnAccept .sapMBtnInner {
+  background: steelblue;
+  color: white;
 }
 
 /*Main page*/
-.customHeaderTextMain.sapMText {
-  font-family: Calibri;
-  font-size: 1.3rem;
+.pageMain {
+  background-color: #DBEEF4;
 }
-@media screen and (max-width: 414px) {
-  .customHeaderTextMain.sapMText {
-    font-family: Calibri;
-    font-size: 1.1rem;
-  }
+.pageMain .sapTntToolPageMainContentWrapper {
+  padding: 30px;
 }
-.customSideNavigation.sapContrast.sapTntSideNavigation {
-  background-color: #d1e0ee;
-  border-right: 1px solid #d1e0ee;
+.horLayMain {
+  width: 50%;
 }
-.customSideNavigation.sapContrast .sapTntNavLIGroup {
-  border-bottom: none;
+.horLayMain .sapUiHLayoutChildWrapper, .verLayMain {
+  display: block;
 }
-.customSideNavigation.sapContrast .sapTntNavLIItem {
-  background-color: #d1e0ee;
+.horLayMain .sapUiHLayoutChildWrapper {
+  margin: 15px 0 15px 0;
 }
-.customSideNavigation.sapContrast .sapTntNavLIItem>.sapUiIcon {
-  color: white;
+.verLayMain .sapMLnk {
+  font-size: 1.1rem;
 }
 
-/*Login page*/
-div .iconStyle {
-  margin-top: 3%;
-  margin-bottom: 3%;
-  margin-left: 48%;
+/*Create Tenant page*/
+.pageCreateTenant .sapTntToolPageMainContentWrapper {
+  padding: 30px;
 }
-.iconStyle {
-  background: url(../images/logo.png) no-repeat;
-  width: 50px !important;
-  height: 50px !important;
-  background-size: contain;
-}
-.inputStyle {
-  margin-left: 38%;
-}
-.buttonStyle {
-  width: 25%;
-  margin-left: 38%;
-}
-.buttonStyle .sapMBtnInner {
-  background-color: green;
-  color: white;
-}
-:not(.sapMBtnDisabled)>.buttonStyle .sapMBtnInner.sapMBtnActive {
-  background-color: yellowgreen;
-  border-color: yellowgreen;
-}
-
-/*Profile page*/
-.sap-desktop .customProfilePage .sapTntToolPageAside {
-  max-width: 5%;
-}
-.sap-desktop .customProfilePage .sapTntToolPageMain {
-  padding-left: 5%;
-}
-.customVerLayPicText {
-  width: 45%;
-}
-.customHorLayPicTextTop {
-  margin-bottom: 10%;
-}
-.customHorLayPicText {
-  margin-bottom: 2%;
-}
-.customHorLayPicTextTop, .customHorLayPicText {
-  margin-top: 2%;
+.verLayCreateTenant , .verLayCreateTenantBtn .sapMBtnBase.sapMBtn, .verLayCreateTenantBtn .sapMBtnInner{
   width: 100%;
+}
+.pageCreateTenant .sapUiHLayoutChildWrapper {
   position: relative;
-}
-.customHorLayPicTextTop div:nth-child(1) {
-  width: 100px;
-}
-.customHorLayPicText div:nth-child(1) {
-  text-align: left;
-  width: 50px;
-}
-.customHorLayPicTextTop div:nth-child(2), .customHorLayPicText div:nth-child(2) {
-  width: 70%;
-  margin-left: 5%;
-  text-align: left;
-  position: absolute;
-}
-.customHorLayPicTextTop div:nth-child(2) {
-  top: 40%;
-}
-.customHorLayPicText div:nth-child(2) {
-  top: 20%;
-}
-/*Image*/
-.customUserImage {
-  border-radius: 50%;
-  margin-top: 2%;
-}
-/*Text*/
-.customUserName.sapMText, .customText.sapMText {
-  color: cornflowerblue;
-  font-family: "Comic Sans MS";
-  position: absolute;
-  display: inline-block;
-  top: 40%;
-}
-.customUserName.sapMText {
-  font-size: 1.3rem;
-}
-.customText.sapMText {
-  font-size: 1rem;
-}
-/*Icons*/
-.customVerLayIcon {
-  min-width: 63px;
-  width: 12%;
-}
-.customVerLayIcon div {
-  margin-top: 45%;
-}
-.customNotesIcon {
-  background: url("https://cdn0.iconfinder.com/data/icons/weby-flat-files-folder-documents/64/Filesfolders-05-512.png") no-repeat;
-}
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customNotesIcon.sapUiIcon:focus,
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customLikesIcon.sapUiIcon:focus,
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customAnswersIcon.sapUiIcon:focus,
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customBookmarksIcon.sapUiIcon:focus,
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customReturnIcon.sapUiIcon:focus,
-html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .customFriendIcon.sapUiIcon:focus {
-  outline: none;
-}
-.customLikesIcon {
-  background: url("https://cdn0.iconfinder.com/data/icons/basic-ui-elements-colored/700/08_heart-2-512.png") no-repeat;
-}
-.customAnswersIcon {
-  background: url("https://cdn0.iconfinder.com/data/icons/basic-11/97/3-512.png") no-repeat;
-}
-.customBookmarksIcon {
-  background: url("https://cdn2.iconfinder.com/data/icons/round-interface-1/240/72-512.png") no-repeat;
-}
-.customNotesIcon, .customLikesIcon, .customAnswersIcon, .customBookmarksIcon {
-  margin-left: 5%;
-  width: 60px !important;
-  height: 60px !important;
-  background-size: contain;
-}
-.customFriendIcon, .customGroupIcon, .customSettingsIcon, .customHelpIcon {
-  width: 40px !important;
-  height: 40px !important;
-  background-size: contain;
-}
-/*option and function lists*/
-.customListItem.sapMLIB, .customFunctionListItem.sapMLIB {
-  border-bottom: none;
-  background-color: inherit !important;
-}
-.customListItem.sapMLIBFocusable:focus, .customFunctionListItem.sapMLIBFocusable:focus {
-  outline: none;
-}
-.customListItem .sapMSLITitleOnly {
-  color: cornflowerblue;
-  font-family: "Comic Sans MS";
-}
-.customFunctionListItem .sapMSLITitleOnly {
-  color: green;
-  font-family: "Comic Sans MS";
-}
-.customFunctionListItem.sapMSLI {
-  height: 64px;
-}
-.customHorLayProfileView div:nth-child(1) {
-  width: 130%;
-}
-
-
-/*SearchForFriends page*/
-.sap-desktop .customTable .sapTntToolPageAsideCollapsed .sapTntToolPageMain,
-.sap-tablet .customTable .sapTntToolPageAsideCollapsed .sapTntToolPageMain {
-  padding-left: 0;
-}
-.sap-desktop .customTable .sapTntToolPageMain,
-.sap-tablet .customTable .sapTntToolPageMain {
-  padding-left: 0;
-}
-.customTable .sapMListTblCell {
   vertical-align: middle;
 }
-.customMemberImage {
-  height: 70px;
+.pageCreateTenant .sapMLabel {
+  width: 200px;
+}
+.pageCreateTenant .sapUiHLayoutChildWrapper:nth-child(2) {
+  width: 300px;
+}
+.verLayCreateTenantBtn {
+  width: 500px;
+}
+.verLayCreateTenantBtn .sapUiVltCell {
+  margin-top: 50px;
+}
+.verLayCreateTenantBtn .sapMBtnInner {
+  font-size: 1rem;
+}
+
+/*Enter Counter Number page*/
+.customCurrentCounterNumber.sapMInputBaseHeightMargin {
+  margin: 0;
+}
+.sapMListTbl .customTableHeaderText.sapMText {
+  font-weight: bold;
+}
+.customLabel.sapMLabel {
+  width: 100%;
+  font-weight: bold;
+}
+.verLayCreateTenant .sapUiCalMonthPicker, .verLayCreateTenant .sapUiCalYearPicker {
+  width: 25rem;
+}
+.customTableEnterCounterNumber.sapMList {
+  margin: 30px 0;
+}
+.customTableEnterCounterNumber .sapMListTblNavCol, .sapMListTblCell {
+  vertical-align: middle;
+}
+.inputError .sapMInputBaseContentWrapper {
+  border-color: red;
+}
+
+/*Funded Sheet page*/
+.pageFundedSheet .sapTntToolPageMainContentWrapper {
+  padding: 30px;
+}
+.pageFundedSheet .sapUiHLayoutChildWrapper {
+  position: relative;
+  vertical-align: middle;
+}
+.pageFundedSheet .verLayCreateTenant:nth-child(3) {
+  margin-top: 30px;
+}
+.verLayFundedSheet .sapUiVltCell.sapuiVltCell:nth-child(2) {
+  margin-top: 30px;
+}
+.customLabelFundedSheet.sapMLabel {
+  font-weight: bold;
+}
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(1) .sapMLabel {
+  width: 40px;
+}
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(3) .sapMLabel {
   width: 70px;
-  border-radius: 50%;
+  padding-left: 60px;
 }
-.customMemberName.sapMText {
-  font-size: 1.1rem;
-  font-weight: 600;
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(5) .sapMLabel {
+  width: 32px;
+  padding-left: 10px;
 }
-.customMemberKidAge.sapMText {
-  font-size: 1.1rem;
-  background-color: lightskyblue;
-  margin-left: 8px;
-  border-radius: 20%;
-}
-.customButton .sapMBtn:focus {
-  outline: none;
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(2),
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(4),
+.pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(6) {
+  width: 70px;
 }
 
-
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(1),
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2){
+  width: 190px;
+}
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) {
+  margin-left: 40px;
+}
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(1) .sapMBtn,
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) .sapMBtn{
+  width: 100%;
+}

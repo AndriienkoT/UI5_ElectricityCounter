@@ -16,49 +16,30 @@ sap.ui.define([
         var sRouteName = oEvent.getParameter("name");
         jQuery.sap.log.info("User accessed route " + sRouteName + ", timestamp = " + new Date().getTime());
       });
-
-      this.getEventBus().subscribe("Profile", "GoToSplitApp", this.goToSplitApp, this);
-      this.getEventBus().subscribe("Profile", "GoToCharts", this.goToCharts, this);
-      this.getEventBus().subscribe("Profile", "GoToKPITiles", this.goToKPITiles, this);
-      this.getEventBus().subscribe("Profile", "GoToSelectedItem", this.goToSelectedItem, this);
-      this.getEventBus().subscribe("Profile", "GoToSelectedFunction", this.goToSelectedItem, this);
     },
 
-    //press menu button
-    onMenuButtonPress : function (oEvent) {
-      var viewId = this.getView().getId();
-      var mainPage = sap.ui.getCore().byId(viewId + "--main");
-      mainPage.setSideExpanded(!mainPage.getSideExpanded());
+    goToCreateTenant: function (oEvent) {
+      this.getRouter().navTo("createTenant");
     },
 
-    sideNavIsSelected: function (oEvent) {
-      var oItem = oEvent.getParameter("item");
-      var oContext = oItem.getBindingContext("Model");
-      var oModelObject = oContext.oModel.getProperty(oContext.sPath);
-      var fNavigation = oModelObject.action;
-      if (fNavigation == "goToProfile") {
-        this.goToProfile();
-      } else if (fNavigation == "goToLogout") {
-        this.goToLogout();
-      }
+    goToEditTenant: function (oEvent) {
+      this.getRouter().navTo("editTenant");
     },
-    goToProfile: function (oEvent) {
-      this.getRouter().navTo("profile");
+
+    goToDeleteTenant: function (oEvent) {
+      this.getRouter().navTo("deleteTenant");
     },
-    goToLogout: function (oEvent) {
-      // this.getRouter().navTo("logout");
+
+    goToEnterCounterNumber: function (oEvent) {
+      this.getRouter().navTo("enterCounterNumber");
     },
-    goToSplitApp: function (oEvent) {
-      this.getRouter().navTo("splitApp");
+
+    goToCreatePDF: function (oEvent) {
+      this.getRouter().navTo("createPDF");
     },
-    goToCharts: function (oEvent) {
-      this.getRouter().navTo("charts");
-    },
-    goToKPITiles: function (oEvent) {
-      this.getRouter().navTo("kpiTiles");
-    },
-    goToSelectedItem: function (sChannel, oEvent, data) {
-      this.getRouter().navTo(data);
+
+    goToFundedSheet: function (oEvent) {
+      this.getRouter().navTo("fundedSheet");
     }
   });
 });

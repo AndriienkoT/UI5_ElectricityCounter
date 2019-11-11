@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
 const sourcemaps = require('gulp-sourcemaps');

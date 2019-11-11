@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 const gulp = require('gulp');
 const prompt = require('gulp-prompt');
 const argv = require('yargs').argv;

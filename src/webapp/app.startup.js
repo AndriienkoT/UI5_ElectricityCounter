@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 sap.ui.getCore().attachInit(() => {
   sap.ui.require([
     "sap/ui/core/ComponentContainer"

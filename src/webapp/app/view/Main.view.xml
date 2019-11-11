@@ -1,31 +1,53 @@
 <mvc:View
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
+  xmlns:core="sap.ui.core"
   xmlns:tnt="sap.tnt"
+  xmlns:l="sap.ui.layout"
   controllerName="UI5toLearn.controller.App" width="100%" height="100%"
   displayBlock="true">
 
-  <tnt:ToolPage id="main">
+  <tnt:ToolPage id="main" class="pageMain">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
-        <Button id="menuButton" icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress"/>
-        <ToolbarSpacer />
-        <Text text="Hi, {Model>/login}" class="customHeaderTextMain" />
+        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" visible="false">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+        <Text text="Учет потребления електроэнергии арендаторами" class="customHeaderText" />
       </tnt:ToolHeader>
     </tnt:header>
 
-    <tnt:sideContent>
-      <tnt:SideNavigation id="sideNavigation" expanded="false" class="customSideNavigation">
-        <tnt:NavigationList items="{path: 'Model>/navigation'}" itemSelect="sideNavIsSelected">
-          <tnt:NavigationListItem icon="{path: 'Model>icon'}"
-                                  text="{path: 'Model>title'}"
-                                  enabled="true">
-          </tnt:NavigationListItem>
-        </tnt:NavigationList>
-      </tnt:SideNavigation>
-    </tnt:sideContent>
-
     <tnt:mainContents>
+      <l:HorizontalLayout class="horLayMain">
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Добавить нового арендатора" press="goToCreateTenant"/>
+        </l:VerticalLayout>
+
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Изменить арендатора" press="goToEditTenant"/>
+        </l:VerticalLayout>
+
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Удалить арендатора" press="goToDeleteTenant"/>
+        </l:VerticalLayout>
+      </l:HorizontalLayout>
+
+      <l:HorizontalLayout class="horLayMain">
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Разпечатать для заполнения показателей" press="goToCreatePDF"/>
+        </l:VerticalLayout>
+
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Внести показатели" press="goToEnterCounterNumber"/>
+        </l:VerticalLayout>
+
+        <l:VerticalLayout class="verLayMain">
+          <Link text="Накопительная ведомость за выбранный период" press="goToFundedSheet" />
+        </l:VerticalLayout>
+      </l:HorizontalLayout>
+
 
     </tnt:mainContents>
   </tnt:ToolPage>

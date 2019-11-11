@@ -5,13 +5,11 @@
     "id": "UI5toLearn",
     "type": "application",
     "title": "UI5toLearn",
-    "description": "Common project to develop GK Software specific libraries, components and controls for UI5 applications",
+    "description": "",
     "applicationVersion": {
       "version": "0.0.1"
     },
-    "embeds": [
-      "component.Profile"
-    ]
+    "embeds": []
   },
   "sap.ui": {
     "_version": "1.50.7",
@@ -47,7 +45,7 @@
         "sap.m": {},
         "sap.ui.layout": {}
       },
-      "components": {"UI5toLearn.component.Profile": {}}
+      "components": {}
     },
     "contentDensities": {
       "compact": true,
@@ -78,85 +76,80 @@
         "controlId": "app",
         "controlAggregation": "pages",
         "transition": "slide",
-        "homeRoute": "login"
+        "homeRoute": "main"
       },
       "routes": [
         {
           "pattern": "",
-          "name": "login",
-          "target": "login"
-        },
-        {
-          "pattern": "main",
           "name": "main",
           "target": "main"
         },
         {
-          "pattern": "profile",
-          "name": "profile",
-          "target": "profile"
+          "pattern": "createTenant",
+          "name": "createTenant",
+          "target": "createTenant"
         },
         {
-          "pattern": "searchForFriends",
-          "name": "searchForFriends",
-          "target": "searchForFriends"
+          "pattern": "editTenant",
+          "name": "editTenant",
+          "target": "editTenant"
         },
         {
-          "pattern": "dragAndDrop",
-          "name": "dragAndDrop",
-          "target": "dragAndDrop"
+          "pattern": "deleteTenant",
+          "name": "deleteTenant",
+          "target": "deleteTenant"
         },
         {
-          "pattern": "splitApp",
-          "name": "splitApp",
-          "target": "splitApp"
+          "pattern": "enterCounterNumber",
+          "name": "enterCounterNumber",
+          "target": "enterCounterNumber"
         },
         {
-          "pattern": "charts",
-          "name": "charts",
-          "target": "charts"
+          "pattern": "createPDF",
+          "name": "createPDF",
+          "target": "createPDF"
         },
         {
-          "pattern": "kpiTiles",
-          "name": "kpiTiles",
-          "target": "kpiTiles"
+          "pattern": "fundedSheet",
+          "name": "fundedSheet",
+          "target": "fundedSheet"
         }
       ],
       "targets": {
-        "login": {
-          "viewId": "login",
-          "viewName": "Login",
-          "viewLevel": 1
-        },
         "main": {
           "viewId": "main",
           "viewName": "Main",
           "viewLevel": 1
         },
-        "profile": {
-          "viewName": "Profile",
-          "viewPath": "UI5toLearn.component.Profile.view",
+        "createTenant": {
+          "viewId": "createTenant",
+          "viewName": "CreateTenant",
           "viewLevel": 1
         },
-        "searchForFriends": {
-          "viewName": "SearchForFriends",
-          "viewPath": "UI5toLearn.component.Profile.view"
+        "editTenant": {
+          "viewId": "editTenant",
+          "viewName": "EditTenant",
+          "viewLevel": 1
         },
-        "dragAndDrop": {
-          "viewName": "DragAndDrop",
-          "viewPath": "UI5toLearn.component.Profile.view"
+        "deleteTenant": {
+          "viewId": "deleteTenant",
+          "viewName": "DeleteTenant",
+          "viewLevel": 1
         },
-        "splitApp": {
-          "viewName": "SplitApp",
-          "viewPath": "UI5toLearn.component.Profile.view"
+        "enterCounterNumber": {
+          "viewId": "enterCounterNumber",
+          "viewName": "EnterCounterNumber",
+          "viewLevel": 1
         },
-        "charts": {
-          "viewName": "Charts",
-          "viewPath": "UI5toLearn.component.Profile.view"
+        "createPDF": {
+          "viewId": "createPDF",
+          "viewName": "CreatePDF",
+          "viewLevel": 1
         },
-        "kpiTiles": {
-          "viewName": "KPITiles",
-          "viewPath": "UI5toLearn.component.Profile.view"
+        "fundedSheet": {
+          "viewId": "fundedSheet",
+          "viewName": "FundedSheet",
+          "viewLevel": 1
         }
       }
     }

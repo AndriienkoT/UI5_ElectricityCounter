@@ -15,12 +15,18 @@ sap.ui.define([
       if (sPreviousHash !== undefined) {
         window.history.go(-1);
       } else {
-        this.getRouter().navTo("Login", {}, true /*no history*/);
+        this.getRouter().navTo("main", {}, true /*no history*/);
       }
     },
 
     getModel: function (oEvent) {
-      return this.getOwnerComponent().getModel("Model");
+      var oModel = this.getOwnerComponent().getModel("Model");
+      return oModel;
+    },
+
+    getStorage: function (oEvent) {
+      jQuery.sap.require("jquery.sap.storage");
+      return jQuery.sap.storage(jQuery.sap.storage.Type.local);
     },
 
     getEventBus: function (oEvent) {

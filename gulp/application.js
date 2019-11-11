@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 const gulp = require('gulp');
 const del = require('del');
 const rename = require('gulp-rename');

@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 window["sap-ui-config"] = {
   libs: "sap.m",
   theme: "sap_belize",
