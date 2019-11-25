@@ -32,7 +32,7 @@
             </l:HorizontalLayout>
 
             <l:HorizontalLayout class="horLayFundedSheetButtons">
-              <Button id="oneTenantBtn" text="По арендатору: " press="onOpenTenantDialog" class="customBtnAccept" />
+              <Button id="oneTenantBtn" text="По счетчику: " press="onOpenCounterDialog" class="customBtnAccept" />
               <Button id="allTenantsBtn" text="По всем арендаторам" class="customBtnAccept" press="onTableAllTenantsShow" />
             </l:HorizontalLayout>
           </l:VerticalLayout>
@@ -40,13 +40,14 @@
           <Table id="tableFundedSheet"
                  items="{Model>/tenants}"
                  visible="false"
-                 class="customTableEnterCounterNumber">
+                 class="customTableFundedSheet">
             <columns>
               <Column width="80px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
               <Column width="80px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
               <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
               <Column width="100px"><Text text="Название арендатора" class="customTableHeaderText"/> </Column>
               <Column width="100px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
+              <Column width="110px"><Text text="Коэффициент" class="customTableHeaderText"/> </Column>
             </columns>
             <items>
               <ColumnListItem>
@@ -56,11 +57,11 @@
                   <Text text="{Model>room}" />
                   <Text text="{Model>name}" />
                   <Text text="{Model>counter}" />
+                  <Text text="{Model>coefficient}" />
                 </cells>
               </ColumnListItem>
             </items>
           </Table>
-
       </ScrollContainer>
     </tnt:mainContents>
   </tnt:ToolPage>

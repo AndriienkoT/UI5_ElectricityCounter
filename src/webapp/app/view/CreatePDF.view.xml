@@ -11,7 +11,7 @@
   <tnt:ToolPage id="createPDF" class="pageCreateTenant">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
-        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBack">
+        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
           <layoutData>
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
@@ -21,45 +21,44 @@
     </tnt:header>
 
     <tnt:mainContents>
-      <!--<NavContainer id="pageContainer" initialPage="main">-->
-        <!--<pages>-->
-          <ScrollContainer horizontal="false" vertical="true" height="100%">
-            <l:VerticalLayout class="verLayCreateTenant">
-              <cal:YearPicker id="YP" columns="0" years="10"/>
-            </l:VerticalLayout>
-            <l:VerticalLayout class="verLayCreateTenant">
-              <cal:MonthPicker id="MP" columns="12" months="12"/>
-            </l:VerticalLayout>
+      <ScrollContainer horizontal="false" vertical="true" height="100%">
+        <l:VerticalLayout class="verLayCreateTenant">
+          <cal:YearPicker id="createPDFYP" columns="0" years="10" select="onSetCountNumbPrevMonth"/>
+        </l:VerticalLayout>
+        <l:VerticalLayout class="verLayCreateTenant">
+          <cal:MonthPicker id="createPDFMP" columns="12" months="12" select="onSetCountNumbPrevMonth"/>
+        </l:VerticalLayout>
 
-            <Table id="tableEnterCounterNumber"
-                   items="{Model>/tenants}"
-                   class="customTableEnterCounterNumber">
-              <columns>
-                <Column width="100px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
-                <Column width="100px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
-                <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
-                <Column width="250px"><Text text="Название арендатора" class="customTableHeaderText"/> </Column>
-                <Column width="150px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
-                <Column width="150px"><Text text="Текущие показатели" class="customTableHeaderText"/> </Column>
-              </columns>
-              <items>
-                <ColumnListItem>
-                  <cells>
-                    <Text text="{Model>housing}" />
-                    <Text text="{Model>floor}" />
-                    <Text text="{Model>room}" />
-                    <Text text="{Model>name}" />
-                    <Text text="{Model>counter}" />
-                    <Text />
-                  </cells>
-                </ColumnListItem>
-              </items>
-            </Table>
-            <Button id="createPDFbutton" text="Создать pdf-файл" class="customBtnAccept" press="onCreatePDF" />
-          </ScrollContainer>
-        <!--</pages>-->
-      <!--</NavContainer>-->
-
+        <Table id="tableCreatePDF"
+               items="{Model>/tenants}"
+               class="customTableEnterCounterNumber">
+          <columns>
+            <Column width="100px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
+            <Column width="100px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
+            <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
+            <Column width="250px"><Text text="Арендатор" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
+            <Column width="110px"><Text text="Коэффициент" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Показатели предыдущего месяца" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Показатели текущего месяца" class="customTableHeaderText"/> </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{Model>housing}" />
+                <Text text="{Model>floor}" />
+                <Text text="{Model>room}" />
+                <Text text="{Model>name}" />
+                <Text text="{Model>counter}" />
+                <Text text="{Model>coefficient}" />
+                <Text id="countNumbPrevMonth" />
+                <Text />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+        <Button id="createPDFbutton" text="Создать pdf-файл" class="customBtnAccept" press="onCreatePDF" />
+      </ScrollContainer>
     </tnt:mainContents>
   </tnt:ToolPage>
 

@@ -11,7 +11,7 @@ sap.ui.define([
 
       var allStillExistingTenants = this.getModel().getProperty('/tenants');
 
-      // remove tenant from the Storage
+      // remove tenant
       for (var i = 0; i < allStillExistingTenants.length; i++) {
         if (allStillExistingTenants[i].counter === sCounter) {
           allStillExistingTenants.splice(i, 1);
@@ -23,10 +23,8 @@ sap.ui.define([
       this.getStorage().put('myLocalData', this.getModel().getData());
       this.getModel().refresh(true);
 
+      //clear the input field
       this.getView().byId("counter").setValue(null);
-
-      // console.log(this.getModel());
-      // console.log(this.getStorage().get("myLocalData"));
     },
 
     onNavBackWithoutSaving: function (oEvent) {

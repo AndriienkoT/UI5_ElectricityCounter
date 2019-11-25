@@ -6,7 +6,7 @@ window["sap-ui-config"] = {
   },
   themeRoots: {
   },
-  preload: "async",
+  preload: "sync",
   manifestFirst: true,
   bindingSyntax: "complex",
   compatVersion: "edge",
@@ -16,9 +16,9 @@ window["sap-ui-config"] = {
   statistics: false,
   weinreId: "",
   weinreServer: "",
-  "xx-debugModuleLoading": false,
-  "xx-debugRendering": false,
+  "xx-debugModuleLoading": true,
+  "xx-debugRendering": true,
   "xx-fakeOS": "",
-  "xx-showLoadErrors": false,
-  "xx-waitForTheme": false
+  "xx-showLoadErrors": true,
+  "xx-waitForTheme": true
 };

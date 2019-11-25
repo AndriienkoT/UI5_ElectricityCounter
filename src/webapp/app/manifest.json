@@ -1,0 +1,157 @@
+{
+  "_version": "0.0.1",
+  "sap.app": {
+    "_version": "0.0.1",
+    "id": "UI5toLearn",
+    "type": "application",
+    "title": "UI5toLearn",
+    "description": "",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "embeds": []
+  },
+  "sap.ui": {
+    "_version": "1.50.7",
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_belize"
+    ]
+  },
+  "sap.ui5": {
+    "_version": "0.0.1",
+    "rootView": {
+      "viewName": "UI5toLearn.view.App",
+      "type": "XML",
+      "id": "app"
+    },
+    "dependencies": {
+      "minUI5Version": "1.58",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {}
+      },
+      "components": {}
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "Model": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/Model.json",
+        "preload": true
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ],
+      "js": [
+
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "UI5toLearn.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "transition": "slide",
+        "homeRoute": "main"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "main",
+          "target": "main"
+        },
+        {
+          "pattern": "createTenant",
+          "name": "createTenant",
+          "target": "createTenant"
+        },
+        {
+          "pattern": "editTenant",
+          "name": "editTenant",
+          "target": "editTenant"
+        },
+        {
+          "pattern": "deleteTenant",
+          "name": "deleteTenant",
+          "target": "deleteTenant"
+        },
+        {
+          "pattern": "enterCounterNumber",
+          "name": "enterCounterNumber",
+          "target": "enterCounterNumber"
+        },
+        {
+          "pattern": "createPDF",
+          "name": "createPDF",
+          "target": "createPDF"
+        },
+        {
+          "pattern": "fundedSheet",
+          "name": "fundedSheet",
+          "target": "fundedSheet"
+        }
+      ],
+      "targets": {
+        "main": {
+          "viewId": "main",
+          "viewName": "Main",
+          "viewLevel": 1
+        },
+        "createTenant": {
+          "viewId": "createTenant",
+          "viewName": "CreateTenant",
+          "viewLevel": 1
+        },
+        "editTenant": {
+          "viewId": "editTenant",
+          "viewName": "EditTenant",
+          "viewLevel": 1
+        },
+        "deleteTenant": {
+          "viewId": "deleteTenant",
+          "viewName": "DeleteTenant",
+          "viewLevel": 1
+        },
+        "enterCounterNumber": {
+          "viewId": "enterCounterNumber",
+          "viewName": "EnterCounterNumber",
+          "viewLevel": 1
+        },
+        "createPDF": {
+          "viewId": "createPDF",
+          "viewName": "CreatePDF",
+          "viewLevel": 1
+        },
+        "fundedSheet": {
+          "viewId": "fundedSheet",
+          "viewName": "FundedSheet",
+          "viewLevel": 1
+        }
+      }
+    }
+  }
+}

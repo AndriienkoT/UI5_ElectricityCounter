@@ -21,55 +21,52 @@
     </tnt:header>
 
     <tnt:mainContents>
-      <!--<NavContainer id="pageContainer" initialPage="main">-->
-        <!--<pages>-->
-          <ScrollContainer horizontal="false" vertical="true" height="100%">
-            <Label text="Месяц и год за который нужно внести показатели" labelFor="DP" class="customLabel"/>
+      <ScrollContainer horizontal="false" vertical="true" height="100%">
+        <Label text="Месяц и год за который нужно внести показатели" labelFor="DP" class="customLabel"/>
 
-            <l:VerticalLayout class="verLayCreateTenant">
-              <cal:YearPicker id="YP" columns="0" years="10"/>
-            </l:VerticalLayout>
-            <l:VerticalLayout class="verLayCreateTenant">
-              <cal:MonthPicker id="MP" columns="12" months="12"/>
-            </l:VerticalLayout>
+        <l:VerticalLayout class="verLayCreateTenant">
+          <cal:YearPicker id="YP" columns="0" years="10"/>
+        </l:VerticalLayout>
+        <l:VerticalLayout class="verLayCreateTenant">
+          <cal:MonthPicker id="MP" columns="12" months="12"/>
+        </l:VerticalLayout>
 
-            <Table id="tableEnterCounterNumber"
-                   items="{Model>/tenants}"
-                   class="customTableEnterCounterNumber">
-              <columns>
-                <Column width="100px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
-                <Column width="100px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
-                <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
-                <Column width="250px"><Text text="Название арендатора" class="customTableHeaderText"/> </Column>
-                <Column width="150px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
-                <Column width="150px"><Text text="Текущие показатели" class="customTableHeaderText"/> </Column>
-                <Column width="150px"><Text text="Разница с пред. показателями" class="customTableHeaderText"/> </Column>
-              </columns>
-              <items>
-                <ColumnListItem>
-                  <cells>
-                    <Text text="{Model>housing}" />
-                    <Text text="{Model>floor}" />
-                    <Text text="{Model>room}" />
-                    <Text text="{Model>name}" />
-                    <Text text="{Model>counter}" />
-                    <Input
-                      value="{
-                        path:'{Model>counterNumbers/counterNumber}',
-                        mode: 'sap.ui.model.BindingMode.TwoWays'
-                      }"
-                      type="Number" class="customCurrentCounterNumber" valueLiveUpdate="true" liveChange="onEnterCounterNumber" />
-                    <Text id="difference" />
-                  </cells>
-                </ColumnListItem>
-              </items>
-            </Table>
+        <Table id="tableEnterCounterNumber"
+               items="{Model>/tenants}"
+               class="customTableEnterCounterNumber">
+          <columns>
+            <Column width="100px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
+            <Column width="100px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
+            <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
+            <Column width="250px"><Text text="Название арендатора" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
+            <Column width="110px"><Text text="Коэффициент" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Текущие показатели" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="Разница с пред. показателями" class="customTableHeaderText"/> </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{Model>housing}" />
+                <Text text="{Model>floor}" />
+                <Text text="{Model>room}" />
+                <Text text="{Model>name}" />
+                <Text text="{Model>counter}" />
+                <Text text="{Model>coefficient}" />
+                <Input
+                  value="{
+                    path:'{Model>counterNumbers/counterNumber}',
+                    mode: 'sap.ui.model.BindingMode.TwoWays'
+                  }"
+                  type="Number" class="customCurrentCounterNumber" valueLiveUpdate="true" liveChange="onEnterCounterNumber" />
+                <Text id="difference" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
 
-            <Button text="Записать" press="onSaveCounterNumbers" class="customBtnAccept"/>
-          </ScrollContainer>
-        <!--</pages>-->
-      <!--</NavContainer>-->
-
+        <Button text="Записать" press="onSaveCounterNumbers" class="customBtnAccept"/>
+      </ScrollContainer>
     </tnt:mainContents>
   </tnt:ToolPage>
 

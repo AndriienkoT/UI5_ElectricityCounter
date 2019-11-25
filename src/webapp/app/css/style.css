@@ -33,13 +33,16 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 
 /*Main page*/
 .pageMain {
-  background-color: #DBEEF4;
+  background-image: url("../images/electricity.jpg");
+  opacity: 0.8;
+  background-size: cover;
 }
 .pageMain .sapTntToolPageMainContentWrapper {
   padding: 30px;
 }
 .horLayMain {
   width: 50%;
+  margin-top: 50px;
 }
 .horLayMain .sapUiHLayoutChildWrapper, .verLayMain {
   display: block;
@@ -47,8 +50,20 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 .horLayMain .sapUiHLayoutChildWrapper {
   margin: 15px 0 15px 0;
 }
-.verLayMain .sapMLnk {
+.verLayMain .sapMLnk, .verLayMain .sapMLnk:hover:not(.sapMLnkDsbl), .verLayMain .sapMLnk:focus:not(.sapMLnkDsbl) {
   font-size: 1.1rem;
+  color: white;
+  text-decoration: underline;
+}
+.verLayMain .sapMLnk:focus, html.sap-desktop .verLayMain .sapMLnk:focus:not(.sapMLnkDsbl) {
+  outline: none;
+}
+.verLayMain .customHeaderText {
+  vertical-align: middle;
+  font-size: 1.3rem;
+  text-align: center !important;
+  color: white;
+  width: 100%;
 }
 
 /*Create Tenant page*/
@@ -146,4 +161,13 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 .horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(1) .sapMBtn,
 .horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) .sapMBtn{
   width: 100%;
+}
+.customTableFundedSheet.sapMList {
+  margin: 30px 0;
+}
+.customTableFundedSheet .sapMListTblNavCol, .sapMListTblCell {
+  vertical-align: middle;
+}
+.customTableFundedSheet .sapMListTblHeader .sapMText {
+  font-weight: bold;
 }

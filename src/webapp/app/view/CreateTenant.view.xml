@@ -56,6 +56,13 @@
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
+      <l:VerticalLayout class="verLayCreateTenant">
+        <l:HorizontalLayout>
+          <Label text="Коэффициент"/>
+          <Input id="coefficient" value="{/tenants/coefficient}"/>
+        </l:HorizontalLayout>
+      </l:VerticalLayout>
+
       <l:VerticalLayout class="verLayCreateTenantBtn">
         <Button text="Записать" press="onCreateTenant" class="customBtnAccept"/>
       </l:VerticalLayout>

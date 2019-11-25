@@ -8,18 +8,11 @@
   displayBlock="true">
 
   <tnt:ToolPage id="main" class="pageMain">
-    <tnt:header>
-      <tnt:ToolHeader class="customHeader">
-        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" visible="false">
-          <layoutData>
-            <OverflowToolbarLayoutData priority="NeverOverflow" />
-          </layoutData>
-        </Button>
-        <Text text="Учет потребления електроэнергии арендаторами" class="customHeaderText" />
-      </tnt:ToolHeader>
-    </tnt:header>
-
     <tnt:mainContents>
+      <l:VerticalLayout class="verLayMain">
+        <Text text="Учет потребления електроэнергии арендаторами" class="customHeaderText"/>
+      </l:VerticalLayout>
+
       <l:HorizontalLayout class="horLayMain">
         <l:VerticalLayout class="verLayMain">
           <Link text="Добавить нового арендатора" press="goToCreateTenant"/>

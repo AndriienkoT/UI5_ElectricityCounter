@@ -1,7 +1,3 @@
-/**
- * @author Kholod, Serhii
- */
-
 const GulpMem = require('gulp-mem');
 
 const gulpMem = new GulpMem();
@@ -30,9 +26,9 @@ module.exports = {
   distMemPath: '/',
   gulpMem: gulpMem,
   publish: {
-    username: 'skholod',
-    password: 'skholod',
-    email: 'serhii.kholod.gk@gmail.com',
-    registry: 'http://localhost:8081/repository/npm-all/'
+    username: '',
+    password: '',
+    email: '',
+    registry: ''
   }
 };

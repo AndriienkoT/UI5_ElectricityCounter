@@ -10,6 +10,8 @@ sap.ui.define([
         var oDataFromStorage = this.getStorage().get("myLocalData");
         this.getModel().setData(oDataFromStorage);
       }
+
+      this.getView().byId("coefficient").setValue("1");
     },
 
     onCreateTenant: function (oEvent) {
@@ -19,6 +21,7 @@ sap.ui.define([
       var sRoom = this.getView().byId("room").getValue();
       var sName = this.getView().byId("name").getValue();
       var sCounter = this.getView().byId("counter").getValue();
+      var sCoefficient = this.getView().byId("coefficient").getValue();
 
       //check whether tenant with current counter already exists
       var allExistingTenants = null;
@@ -29,7 +32,6 @@ sap.ui.define([
       if (allExistingTenants != null) {
         if (allExistingTenants.length > 0) {
           for (var i = 0; i < allExistingTenants.length; i++) {
-            console.log(Object.is(allExistingTenants[i].counter, sCounter));
             if (allExistingTenants[i].counter === sCounter) {
               bCounterExists = true;
             }
@@ -38,7 +40,7 @@ sap.ui.define([
       }
       if (bCounterExists) {
         MessageToast.show("Арендатор с указанным номером счетчика уже существует");
-      } else if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "") {
+      } else if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
         MessageToast.show("Все поля должны быть заполнены");
       } else {
 
@@ -49,10 +51,22 @@ sap.ui.define([
           "room" : sRoom,
           "name" : sName,
           "counter" : sCounter,
+          "coefficient" : sCoefficient,
           "counterNumbers": {
             "2019": {
               "0": {
                 "counterNumber": "0"
+              }
+            },
+            "2020": {},
+            "2021": {},
+            "2022": {},
+            "2023": {}
+          },
+          "differences": {
+            "2019": {
+              "0": {
+                "difference": "0"
               }
             },
             "2020": {},
@@ -72,25 +86,25 @@ sap.ui.define([
         this.getStorage().put("myLocalData", oDataFromModel);
 
         //clear input fields
-        this.getView().byId("housing").setValue(null);
-        this.getView().byId("floor").setValue(null);
-        this.getView().byId("room").setValue(null);
-        this.getView().byId("name").setValue(null);
-        this.getView().byId("counter").setValue(null);
+        this.onClearFields();
       }
     },
 
     onNavBackWithoutSaving: function (oEvent) {
-
       //clear input fields
+      this.onClearFields();
+
+      //navigate to the Main page
+      this.getRouter().navTo("main");
+    },
+
+    onClearFields: function () {
       this.getView().byId("housing").setValue(null);
       this.getView().byId("floor").setValue(null);
       this.getView().byId("room").setValue(null);
       this.getView().byId("name").setValue(null);
       this.getView().byId("counter").setValue(null);
-
-      //navigate to the Main page
-      this.getRouter().navTo("main");
+      this.getView().byId("coefficient").setValue("1");
     }
   });
 });
