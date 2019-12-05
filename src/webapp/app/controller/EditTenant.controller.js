@@ -19,47 +19,31 @@ sap.ui.define([
         MessageToast.show("Все поля должны быть заполнены");
       } else {
 
-        //create oData
-        var oData = {
-          "housing" : sHousing,
-          "floor" : sFloor,
-          "room" : sRoom,
-          "name" : sName,
-          "counter" : sCounter,
-          "coefficient" : sCoefficient,
-          "counterNumbers": {
-            "2019": {
-              "0": {
-                "counterNumber": "0"
-              }
-            },
-            "2020": {},
-            "2021": {},
-            "2022": {},
-            "2023": {}
-          },
-          "differences": {
-            "2019": {
-              "0": {
-                "difference": "0"
-              }
-            },
-            "2020": {},
-            "2021": {},
-            "2022": {},
-            "2023": {}
-          }
-        };
-
+        // edit tenant in the Model
         var allStillExistingTenants = this.getModel().getProperty('/tenants');
-
-        // edit tenant in the Storage
-        for (var i = 0; i < allStillExistingTenants.length; i++) {
-          if (allStillExistingTenants[i].counter === sCounter) {
-            allStillExistingTenants.splice(i, 1, oData);
+        var nIndex = 0;
+        for (nIndex = 0; nIndex < allStillExistingTenants.length; nIndex++) {
+          if (allStillExistingTenants[nIndex].counter === sCounter) {
             break;
           }
         }
+        var oTenant = allStillExistingTenants[nIndex];
+        if(oTenant.housing !== sHousing){
+          oTenant.housing = sHousing;
+        }
+        if(oTenant.floor !== sFloor){
+          oTenant.floor = sFloor;
+        }
+        if(oTenant.room !== sRoom){
+          oTenant.room = sRoom;
+        }
+        if(oTenant.name !== sName){
+          oTenant.name = sName;
+        }
+        if(oTenant.coefficient !== sCoefficient){
+          oTenant.coefficient = sCoefficient;
+        }
+        allStillExistingTenants.splice(nIndex, 1, oTenant);
 
         //update data in the Storage
         this.getStorage().put('myLocalData', this.getModel().getData());
