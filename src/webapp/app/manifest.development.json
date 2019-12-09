@@ -36,7 +36,8 @@
     "rootView": {
       "viewName": "UI5toLearn.view.App",
       "type": "XML",
-      "id": "app"
+      "id": "app",
+      "async": true
     },
     "dependencies": {
       "minUI5Version": "1.58",
@@ -76,7 +77,8 @@
         "controlId": "app",
         "controlAggregation": "pages",
         "transition": "slide",
-        "homeRoute": "main"
+        "homeRoute": "main",
+        "async": true
       },
       "routes": [
         {

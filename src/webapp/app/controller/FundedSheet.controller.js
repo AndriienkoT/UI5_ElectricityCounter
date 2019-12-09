@@ -8,46 +8,8 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.FundedSheet", {
 
     onInit: function () {
-      this.onUpdateData();
-      this.getView().byId("tableFundedSheet").setModel(this.getModel(), "Model");
-
-      // var oTable = this.getView().byId("tableFundedSheet");
-      // oTable.setModel(this.getModel(), "Model");
-      //
-      // var oColumnData = [
-      //   new sap.m.Column({
-      //     header: new sap.m.Text({text:"Корпус"})
-      //   }),
-      //   new sap.m.Column({
-      //     header: new sap.m.Text({text:"Этаж"})
-      //   }),
-      //   new sap.m.Column({
-      //     header: new sap.m.Text({text:"Помещение"})
-      //   }),
-      //   new sap.m.Column({
-      //     header: new sap.m.Text({text:"Название арендатора"})
-      //   }),
-      //   new sap.m.Column({
-      //     header: new sap.m.Text({text:"Номер счетчика"})
-      //   })
-      // ];
-      // oColumnData.forEach(function(oColumn){
-      //   oTable.addAggregation("columns", oColumn);
-      // });
-      //
-      // var oColumnListItem = new sap.m.ColumnListItem(
-      //   {cells: [
-      //     new sap.m.Text({text : "{Model>housing}"}),
-      //     new sap.m.Text({text : "{Model>floor}"}),
-      //     new sap.m.Text({text : "{Model>room}"}),
-      //     new sap.m.Text({text : "{Model>name}"}),
-      //     new sap.m.Text({text : "{Model>counter}"})
-      //     ]
-      //   });
-      // oTable.bindItems({
-      //   path: "Model>/tenants",
-      //   template: oColumnListItem
-      // });
+      var oController = BaseController;
+      this.onRetrieveData(oController);
     },
 
     onAfterRendering: function () {
@@ -56,11 +18,17 @@ sap.ui.define([
       this.onSortData(oTable);
     },
 
-    onOpenCounterDialog: function (oEvent) {
-      this.getView().byId("tableFundedSheet").setModel(this.getModel(), "Model");
+    onOpenCounterDialog: async function (oEvent) {
       this.getView().byId("tableFundedSheet").setVisible(false);
+
+      //update data in teh Model
+      var oController = BaseController;
+      this.onRetrieveData(oController);
+      await new Promise(function(resolve){setTimeout(resolve, 100)});
       var oData = this.getModel().getData().tenants;
       var that = this;
+
+      //create a dialog
       var dialog = new Dialog({
         title: 'Confirm',
         type: 'Message',
@@ -175,7 +143,8 @@ sap.ui.define([
         oSelectedCountNumbs.tenants[0].counterNumbers[nYear] = {};
         oSelectedCountNumbs.tenants[0].differences[nYear] = {};
 
-        //for each month, if there is data for the month, add it to the oSelectedCountNumbs and add the appropriate column to the table
+        //for each month, if there is data for the month,
+        // add it to the oSelectedCountNumbs and add the appropriate column to the table
         for (var i = nStartMonth; i <= nEndMonth; i++) {
           if (aAllCountNumbs[i] !== undefined) {
             var oData2 = {
@@ -256,16 +225,13 @@ sap.ui.define([
         var oTable = this.getView().byId("tableFundedSheet");
         oTable.getModel("Model").setData(oSelectedCountNumbs);
 
-
         //show the table
-        this.getView().byId("tableFundedSheet").setVisible(true);
         this.onAfterRendering();
+        this.getView().byId("tableFundedSheet").setVisible(true);
       }
     },
 
-    onTableOneCounterShow: function (tenant) {
-      this.getView().byId("tableFundedSheet").setVisible(false);
-      this.onUpdateData();
+    onTableOneCounterShow: async function (tenant) {
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
@@ -302,7 +268,11 @@ sap.ui.define([
 
     onTableAllTenantsShow: function (oEvent) {
       this.getView().byId("tableFundedSheet").setVisible(false);
-      this.onUpdateData();
+
+      //update data in the Model
+      var oController = BaseController;
+      this.onRetrieveData(oController);
+
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
@@ -360,7 +330,8 @@ sap.ui.define([
         }
       });
 
-      //if does not exist, create and add the column of counterNumber and the column of difference with previous month
+      //if does not exist,
+      // create and add the column of counterNumber and the column of difference with previous month
       if (!bExists) {
         var oColumn1 = new sap.m.Column({
           header: new sap.m.Text({text: month}),
