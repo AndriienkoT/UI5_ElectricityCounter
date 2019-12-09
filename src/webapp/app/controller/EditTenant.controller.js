@@ -32,19 +32,20 @@ sap.ui.define([
           }
         }
         var oTenant = allStillExistingTenants[nIndex];
-        if (oTenant.housing !== sHousing) {
+        if(oTenant.housing !== sHousing){
           oTenant.housing = sHousing;
         }
-        if (oTenant.floor !== sFloor) {
+        if(oTenant.floor !== sFloor){
           oTenant.floor = sFloor;
         }
-        if (oTenant.room !== sRoom) {
+        if(oTenant.room !== sRoom){
           oTenant.room = sRoom;
         }
-        if (oTenant.name !== sName) {
+        if(oTenant.name !== sName){
           oTenant.name = sName;
         }
-        if (oTenant.coefficient !== sCoefficient) {
+        if(oTenant.coefficient !== sCoefficient){
+
           oTenant.coefficient = sCoefficient;
         }
         allStillExistingTenants.splice(nIndex, 1, oTenant);
