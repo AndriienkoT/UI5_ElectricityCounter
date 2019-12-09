@@ -4,6 +4,10 @@ sap.ui.define([
 ], function (BaseController, MessageToast) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.EditTenant", {
+    onInit: function () {
+      var oController = BaseController;
+      this.onRetrieveData(oController);
+    },
 
     onEditTenant: function (oEvent) {
 
@@ -41,13 +45,14 @@ sap.ui.define([
           oTenant.name = sName;
         }
         if(oTenant.coefficient !== sCoefficient){
+
           oTenant.coefficient = sCoefficient;
         }
         allStillExistingTenants.splice(nIndex, 1, oTenant);
 
-        //update data in the Storage
-        this.getStorage().put('myLocalData', this.getModel().getData());
-        this.getModel().refresh(true);
+        //update data in IDB
+        var oController = BaseController;
+        this.onEditOneTenant(oController, sHousing, sFloor, sRoom, sName, sCounter, sCoefficient);
 
         //clear input fields
         this.onClearFields();

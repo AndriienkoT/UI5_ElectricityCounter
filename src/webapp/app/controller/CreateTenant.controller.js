@@ -5,11 +5,8 @@ sap.ui.define([
   "use strict";
   return BaseController.extend("UI5toLearn.controller.CreateTenant", {
     onInit: function () {
-      // if there is data in the storage, set it to the Model
-      if (this.getStorage().get("myLocalData")) {
-        var oDataFromStorage = this.getStorage().get("myLocalData");
-        this.getModel().setData(oDataFromStorage);
-      }
+      var oController = BaseController;
+      this.onRetrieveData(oController);
 
       this.getView().byId("coefficient").setValue("1");
     },
@@ -76,14 +73,17 @@ sap.ui.define([
           }
         };
 
-        //set oData to the Model and to the Storage
+        //set oData to the Model
         var oDataFromModel = null;
         if (this.getModel() != undefined) {
           oDataFromModel = this.getModel().getData();
         }
         oDataFromModel.tenants.push(oData);
         this.getModel().refresh(true);
-        this.getStorage().put("myLocalData", oDataFromModel);
+
+        //set oData to the IDB
+        var oController = BaseController;
+        this.onWriteOneTenantToIDB(oController, oData);
 
         //clear input fields
         this.onClearFields();

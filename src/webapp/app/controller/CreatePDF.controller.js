@@ -4,8 +4,8 @@ sap.ui.define([
   "use strict";
   return BaseController.extend("UI5toLearn.controller.CreatePDF", {
     onInit: function () {
-
-      this.onUpdateData();
+      var oController = BaseController;
+      this.onRetrieveData(oController);
 
       //set current year and month as selected
       var nMonth = new Date().getMonth();
@@ -63,7 +63,7 @@ sap.ui.define([
 
       //get data for a table
       var columns = ["korpus", "etazh", "pomeshcheniye", "arendator", "nomer schetchika", "koeficient", "pokazatel predyduschhiy", "pokazatel tekuschhiy"];
-      var oData = this.getView().byId("tableCreatePDF").getModel("Model").oData.tenants;
+      var oData = this.getView().byId("tableCreatePDF").getModel("Model").getData().tenants;
       var data = [];
       for(var i = 0; i < oData.length; i++) {
         var nMonthCalc = nMonth;

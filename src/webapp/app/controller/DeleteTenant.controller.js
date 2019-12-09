@@ -3,6 +3,10 @@ sap.ui.define([
 ], function (BaseController) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.DeleteTenant", {
+    onInit: function () {
+      var oController = BaseController;
+      this.onRetrieveData(oController);
+    },
 
     onDeleteTenant: function (oEvent) {
 
@@ -19,9 +23,9 @@ sap.ui.define([
         }
       }
 
-      //update data in the Storage
-      this.getStorage().put('myLocalData', this.getModel().getData());
-      this.getModel().refresh(true);
+      //delete tenant from IDB
+      var oController = BaseController;
+      this.onRemoveOneTenant(oController, sCounter);
 
       //clear the input field
       this.getView().byId("counter").setValue(null);
