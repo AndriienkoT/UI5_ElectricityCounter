@@ -21,12 +21,17 @@ sap.ui.define([
     onOpenCounterDialog: async function (oEvent) {
       this.getView().byId("tableFundedSheet").setVisible(false);
 
-      //update data in teh Model
+      //update data in the Model
       var oController = BaseController;
       this.onRetrieveData(oController);
       await new Promise(function(resolve){setTimeout(resolve, 100)});
       var oData = this.getModel().getData().tenants;
       var that = this;
+
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+      var sDialogPlaceholder = bundle.getText("fundedSheetPageDialogPlaceholder");
+      var sBeginButton = bundle.getText("fundedSheetPageBeginButton");
+      var sEndButton = bundle.getText("fundedSheetPageEndButton");
 
       //create a dialog
       var dialog = new Dialog({
@@ -34,7 +39,7 @@ sap.ui.define([
         type: 'Message',
         content: [
           new sap.m.Input('submitDialogInput', {
-            placeholder: "По какому счетчику?",
+            placeholder: sDialogPlaceholder,
             liveChange: function (oEvent) {
               var sText = oEvent.getParameter('value');
               var parent = oEvent.getSource().getParent();
@@ -45,7 +50,7 @@ sap.ui.define([
         ],
         beginButton: new sap.m.Button({
           type: ButtonType.Emphasized,
-          text: 'Показать',
+          text: sBeginButton,
           enabled: false,
           press: function () {
             var sText = sap.ui.getCore().byId('submitDialogInput').getValue();
@@ -61,7 +66,8 @@ sap.ui.define([
             //if does not exist, the message is shown, else onTableOneCounterShow() is called
             if (Object.entries(oChosenTenant).length == 0) {
               that.getView().byId("tableFundedSheet").setVisible(false);
-              MessageToast.show("Арендатора с счетчиком " + sText + " не существует");
+              var sMessageCounterDoesntExist = bundle.getText("fundedSheetPageMessageCounterDoesntExist", [sText]);
+              MessageToast.show(sMessageCounterDoesntExist);
             } else {
               that.onTableOneCounterShow(oChosenTenant);
             }
@@ -69,7 +75,7 @@ sap.ui.define([
           }
         }),
         endButton: new sap.m.Button({
-          text: 'Отменить',
+          text: sEndButton,
           press: function () {
             dialog.close();
           }
@@ -89,23 +95,24 @@ sap.ui.define([
     },
 
     onCheckEnter: function (nYear, nStartMonth, nEndMonth) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
       var bEnabled = false;
-      if (nYear == "") {
-        MessageToast.show("Выбери год");
+      if (!nYear) {
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage1"));
       } else if (nYear < 2019 || nYear > 2025) {
-        MessageToast.show("Год не может быть меньше 2019 и больше 2025");
-      } else if (nStartMonth == "" && nEndMonth == "") {
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage2"));
+      } else if (!nStartMonth && !nEndMonth) {
         bEnabled = true;
+      } else if (!nStartMonth && nEndMonth) {
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage3"));
+      } else if (nStartMonth && !nEndMonth) {
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage4"));
       } else if (nStartMonth < 1) {
-        MessageToast.show("Начальный месяц не может быть меньше 1");
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage5"));
       } else if (nEndMonth > 12) {
-        MessageToast.show("Конечный месяц не может быть больше 12");
-      } else if (nStartMonth == "" && nEndMonth) {
-        MessageToast.show("Выбери начальный месяц");
-      } else if (nStartMonth && nEndMonth == "") {
-        MessageToast.show("Выбери конечный месяц");
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage6"));
       } else if (nStartMonth > nEndMonth) {
-        MessageToast.show("Начальный месяц не может быть больше конечного");
+        MessageToast.show(bundle.getText("fundedSheetPageCheckEnterMessage7"));
       } else {
         bEnabled = true;
       }
@@ -218,8 +225,11 @@ sap.ui.define([
     },
 
     onSetSelectedDataToTable: function(oSelectedCountNumbs) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+      var sSetSelectedDataMessage = bundle.getText("fundedSheetPageSetSelectedDataMessage");
+
       if (Object.entries(oSelectedCountNumbs.tenants).length === 0) {
-        MessageToast.show("Нет показателей за выбранный период");
+        MessageToast.show(sSetSelectedDataMessage);
       } else {
         //set data to the model of the table
         var oTable = this.getView().byId("tableFundedSheet");
@@ -235,9 +245,9 @@ sap.ui.define([
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
-      var nYear = this.getView().byId("year").getValue();
-      var nStartMonth = this.getView().byId("monthStart").getValue();
-      var nEndMonth = this.getView().byId("monthEnd").getValue();
+      var nYear = parseInt(this.getView().byId("year").getValue());
+      var nStartMonth = parseInt(this.getView().byId("monthStart").getValue());
+      var nEndMonth = parseInt(this.getView().byId("monthEnd").getValue());
       if (this.onCheckEnter(nYear, nStartMonth, nEndMonth)) {
         var oSelectedCountNumbs = {
           "tenants": []
@@ -276,9 +286,9 @@ sap.ui.define([
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
-      var nYear = this.getView().byId("year").getValue();
-      var nStartMonth = this.getView().byId("monthStart").getValue();
-      var nEndMonth = this.getView().byId("monthEnd").getValue();
+      var nYear = parseInt(this.getView().byId("year").getValue());
+      var nStartMonth = parseInt(this.getView().byId("monthStart").getValue());
+      var nEndMonth = parseInt(this.getView().byId("monthEnd").getValue());
       if (this.onCheckEnter(nYear, nStartMonth, nEndMonth)) {
         var that = this;
         var aDataFromModel = this.getModel().getData().tenants;
@@ -339,8 +349,11 @@ sap.ui.define([
         });
         oColumn1.setStyleClass("customTableHeaderText");
         this.getView().byId("tableFundedSheet").addColumn(oColumn1);
+
+        var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        var sColumnText = bundle.getText("fundedSheetPageAddColumnText");
         var oColumn2 = new sap.m.Column({
-          header: new sap.m.Text({text: "Разница с пред. месяцем"}),
+          header: new sap.m.Text({text: sColumnText}),
           width: "80px",
           styleClass: "customTableHeaderText"
         });

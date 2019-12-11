@@ -1,10 +1,17 @@
 sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/ui/core/routing/History",
-  'sap/ui/model/Sorter'
-], function (Controller, History, Sorter) {
+  'sap/ui/model/Sorter',
+  "sap/ui/model/resource/ResourceModel"
+], function (Controller, History, Sorter, ResourceModel) {
   "use strict";
   return Controller.extend("UI5toLearn.controller.BaseController", {
+    onInit: function () {
+      var i18nModel = new ResourceModel({
+        bundleName: "UI5toLearn.i18n.i18n"
+      });
+      this.getView().setModel(i18nModel, "i18n");
+    },
 
     getModel: function (oEvent) {
       var oModel = this.getOwnerComponent().getModel("Model");

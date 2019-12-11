@@ -6,6 +6,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.App", {
 
     onInit: function () {
+
       jQuery.sap.log.setLevel(jQuery.sap.log.Level.INFO);
       var oRouter = this.getRouter();
 

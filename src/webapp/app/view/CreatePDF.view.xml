@@ -16,7 +16,7 @@
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
         </Button>
-        <Text text="Разпечатать для заполнения показателей" class="customHeaderText" />
+        <Text text="{i18n>createPDFPageTitle}" class="customHeaderText" />
       </tnt:ToolHeader>
     </tnt:header>
 
@@ -33,14 +33,14 @@
                items="{Model>/tenants}"
                class="customTableEnterCounterNumber">
           <columns>
-            <Column width="100px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
-            <Column width="100px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
-            <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
-            <Column width="250px"><Text text="Арендатор" class="customTableHeaderText"/> </Column>
-            <Column width="150px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
-            <Column width="110px"><Text text="Коэффициент" class="customTableHeaderText"/> </Column>
-            <Column width="150px"><Text text="Показатели предыдущего месяца" class="customTableHeaderText"/> </Column>
-            <Column width="150px"><Text text="Показатели текущего месяца" class="customTableHeaderText"/> </Column>
+            <Column width="100px"><Text text="{i18n>tenantLabel1}" class="customTableHeaderText" /> </Column>
+            <Column width="100px"><Text text="{i18n>tenantLabel2}" class="customTableHeaderText"/> </Column>
+            <Column width="100px"><Text text="{i18n>tenantLabel3}" class="customTableHeaderText"/> </Column>
+            <Column width="250px"><Text text="{i18n>tenantLabel4}" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="{i18n>tenantLabel5}" class="customTableHeaderText"/> </Column>
+            <Column width="110px"><Text text="{i18n>tenantLabel6}" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="{i18n>createPDFPageLabel7}" class="customTableHeaderText"/> </Column>
+            <Column width="150px"><Text text="{i18n>createPDFPageLabel8}" class="customTableHeaderText"/> </Column>
           </columns>
           <items>
             <ColumnListItem>
@@ -57,7 +57,7 @@
             </ColumnListItem>
           </items>
         </Table>
-        <Button id="createPDFbutton" text="Создать pdf-файл" class="customBtnAccept" press="onCreatePDF" />
+        <Button id="createPDFbutton" text="{i18n>createPDFPageButton}" class="customBtnAccept" press="onCreatePDF" />
       </ScrollContainer>
     </tnt:mainContents>
   </tnt:ToolPage>

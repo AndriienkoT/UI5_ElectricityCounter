@@ -15,7 +15,7 @@
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
         </Button>
-        <Text text="Удалить арендатора" class="customHeaderText" />
+        <Text text="{i18n>deleteTenantPageTitle}" class="customHeaderText" />
       </tnt:ToolHeader>
     </tnt:header>
 
@@ -23,13 +23,13 @@
 
       <l:VerticalLayout class="verLayCreateTenant">
         <l:HorizontalLayout>
-          <Label text="Номер счетчика"/>
+          <Label text="{i18n>deleteTenantPageLabel1}"/>
           <Input id="counter" value="{/tenants/counter}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayCreateTenantBtn">
-        <Button text="Удалить" press="onDeleteTenant" class="customBtnAccept"/>
+        <Button text="{i18n>deleteTenantPageButton}" press="onDeleteTenant" class="customBtnAccept"/>
       </l:VerticalLayout>
 
     </tnt:mainContents>
