@@ -10,6 +10,7 @@ sap.ui.define([
     },
 
     onEditTenant: function (oEvent) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered data from the input fields
       var sHousing = this.getView().byId("housing").getValue();
@@ -20,7 +21,8 @@ sap.ui.define([
       var sCoefficient = this.getView().byId("coefficient").getValue();
 
       if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
-        MessageToast.show("Все поля должны быть заполнены");
+        var sMessage = bundle.getText("editTenantPageMessageFields");
+        MessageToast.show(sMessage);
       } else {
 
         // edit tenant in the Model

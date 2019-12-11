@@ -12,6 +12,8 @@ sap.ui.define([
     },
 
     onCreateTenant: function (oEvent) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+
       //get entered data from the input fields
       var sHousing = this.getView().byId("housing").getValue();
       var sFloor = this.getView().byId("floor").getValue();
@@ -36,9 +38,11 @@ sap.ui.define([
         }
       }
       if (bCounterExists) {
-        MessageToast.show("Арендатор с указанным номером счетчика уже существует");
+        var sMessage1 = bundle.getText("createTenantPageMessageCounterExists");
+        MessageToast.show(sMessage1);
       } else if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
-        MessageToast.show("Все поля должны быть заполнены");
+        var sMessage2 = bundle.getText("createTenantPageMessageFields");
+        MessageToast.show(sMessage2);
       } else {
 
         //create oData

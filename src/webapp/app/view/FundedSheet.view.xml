@@ -15,7 +15,7 @@
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
         </Button>
-        <Text text="Накопительная ведомость за:" class="customHeaderText" />
+        <Text text="{i18n>FundedSheetPageTitle}" class="customHeaderText" />
       </tnt:ToolHeader>
     </tnt:header>
 
@@ -23,17 +23,17 @@
       <ScrollContainer horizontal="true" vertical="true" height="100%">
           <l:VerticalLayout class="verLayFundedSheet">
             <l:HorizontalLayout>
-              <Label text="Год:" class="customLabelFundedSheet" />
+              <Label text="{i18n>FundedSheetPageLabelYear}" class="customLabelFundedSheet" />
               <Input id="year" type="Number" liveChange="onInputChange" />
-              <Label text="Месяц с:" class="customLabelFundedSheet" />
+              <Label text="{i18n>FundedSheetPageLabelStartMonth}" class="customLabelFundedSheet" />
               <Input id="monthStart" type="Number" liveChange="onInputChange" />
-              <Label text="по:" class="customLabelFundedSheet" />
+              <Label text="{i18n>FundedSheetPageLabelEndMonth}" class="customLabelFundedSheet" />
               <Input id="monthEnd" type="Number" liveChange="onInputChange" />
             </l:HorizontalLayout>
 
             <l:HorizontalLayout class="horLayFundedSheetButtons">
-              <Button id="oneTenantBtn" text="По счетчику: " press="onOpenCounterDialog" class="customBtnAccept" />
-              <Button id="allTenantsBtn" text="По всем арендаторам" class="customBtnAccept" press="onTableAllTenantsShow" />
+              <Button id="oneTenantBtn" text="{i18n>FundedSheetPageButtonCounter}" press="onOpenCounterDialog" class="customBtnAccept" />
+              <Button id="allTenantsBtn" text="{i18n>FundedSheetPageButtonAllTenants}" class="customBtnAccept" press="onTableAllTenantsShow" />
             </l:HorizontalLayout>
           </l:VerticalLayout>
 
@@ -42,12 +42,12 @@
                  visible="false"
                  class="customTableFundedSheet">
             <columns>
-              <Column width="80px"><Text text="Корпус" class="customTableHeaderText" /> </Column>
-              <Column width="80px"><Text text="Этаж" class="customTableHeaderText"/> </Column>
-              <Column width="100px"><Text text="Помещение" class="customTableHeaderText"/> </Column>
-              <Column width="100px"><Text text="Название арендатора" class="customTableHeaderText"/> </Column>
-              <Column width="100px"><Text text="Номер счетчика" class="customTableHeaderText"/> </Column>
-              <Column width="110px"><Text text="Коэффициент" class="customTableHeaderText"/> </Column>
+              <Column width="80px"><Text text="{i18n>tenantLabel1}" class="customTableHeaderText" /> </Column>
+              <Column width="80px"><Text text="{i18n>tenantLabel2}" class="customTableHeaderText"/> </Column>
+              <Column width="100px"><Text text="{i18n>tenantLabel3}" class="customTableHeaderText"/> </Column>
+              <Column width="100px"><Text text="{i18n>tenantLabel4}" class="customTableHeaderText"/> </Column>
+              <Column width="100px"><Text text="{i18n>tenantLabel5}" class="customTableHeaderText"/> </Column>
+              <Column width="110px"><Text text="{i18n>tenantLabel6}" class="customTableHeaderText"/> </Column>
             </columns>
             <items>
               <ColumnListItem>

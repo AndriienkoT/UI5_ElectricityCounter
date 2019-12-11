@@ -55,34 +55,42 @@ sap.ui.define([
     },
 
     onCreatePDF: function (oEvent) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
       //get data for a text
       var nMonth = parseInt(this.getView().byId("createPDFMP").getProperty("month")) + 1;
       var nYear = parseInt(this.getView().byId("createPDFYP").getProperty("year"));
       // var sDate = "год: " + sYear + " ,месяц: " + sMonth;
-      var sDate = "God: " + nYear + ", mesjac: " + nMonth;
+      var sYear = bundle.getText("year");
+      var sMonth = bundle.getText("month");
+      var sDate = sYear + ": " + nYear + ", " + sMonth + ": " + nMonth;
 
       //get data for a table
-      var columns = ["korpus", "etazh", "pomeshcheniye", "arendator", "nomer schetchika", "koeficient", "pokazatel predyduschhiy", "pokazatel tekuschhiy"];
+      var columns = [
+        bundle.getText("PDFtenantLabel1"),
+        bundle.getText("PDFtenantLabel2"),
+        bundle.getText("PDFtenantLabel3"),
+        bundle.getText("PDFtenantLabel4"),
+        bundle.getText("PDFtenantLabel5"),
+        bundle.getText("PDFtenantLabel6"),
+        bundle.getText("PDFtenantLabel7"),
+        bundle.getText("PDFtenantLabel8")
+      ];
       var oData = this.getView().byId("tableCreatePDF").getModel("Model").getData().tenants;
       var data = [];
       for(var i = 0; i < oData.length; i++) {
         var nMonthCalc = nMonth;
         var nYearCalc = nYear;
-        var oPrevMonth;
-        while (oPrevMonth == undefined) {
+        var bPrevMonth = false;
+        while (!bPrevMonth) {
           if (nMonthCalc > 1) {
             nMonthCalc--;
           } else {
             nMonthCalc = 12;
             nYearCalc--;
           }
-          if (nYearCalc < 2019) {
-            oPrevMonth = "";
-          } else {
-            oPrevMonth = oData[i].counterNumbers[nYearCalc][nMonthCalc];
-          }
+          bPrevMonth = true;
         }
-        data[i] = [oData[i].housing, oData[i].floor, oData[i].room, oData[i].name, oData[i].counter, oData[i].coefficient, oPrevMonth.counterNumber];
+        data[i] = [oData[i].housing, oData[i].floor, oData[i].room, oData[i].name, oData[i].counter, oData[i].coefficient, oData[i].counterNumbers[nYearCalc][nMonthCalc].counterNumber];
       }
 
       //create an instance of jsPDF and set there styles, the text and the table

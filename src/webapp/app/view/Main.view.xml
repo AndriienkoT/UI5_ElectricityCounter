@@ -10,34 +10,34 @@
   <tnt:ToolPage id="main" class="pageMain">
     <tnt:mainContents>
       <l:VerticalLayout class="verLayMain">
-        <Text text="Учет потребления електроэнергии арендаторами" class="customHeaderText"/>
+        <Text text="{i18n>mainPageTitle}" class="customHeaderText"/>
       </l:VerticalLayout>
 
       <l:HorizontalLayout class="horLayMain">
         <l:VerticalLayout class="verLayMain">
-          <Link text="Добавить нового арендатора" press="goToCreateTenant"/>
+          <Link text="{i18n>mainPageLink1}" press="goToCreateTenant"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="Изменить арендатора" press="goToEditTenant"/>
+          <Link text="{i18n>mainPageLink2}" press="goToEditTenant"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="Удалить арендатора" press="goToDeleteTenant"/>
+          <Link text="{i18n>mainPageLink3}" press="goToDeleteTenant"/>
         </l:VerticalLayout>
       </l:HorizontalLayout>
 
       <l:HorizontalLayout class="horLayMain">
         <l:VerticalLayout class="verLayMain">
-          <Link text="Разпечатать для заполнения показателей" press="goToCreatePDF"/>
+          <Link text="{i18n>mainPageLink4}" press="goToCreatePDF"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="Внести показатели" press="goToEnterCounterNumber"/>
+          <Link text="{i18n>mainPageLink5}" press="goToEnterCounterNumber"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="Накопительная ведомость за выбранный период" press="goToFundedSheet" />
+          <Link text="{i18n>mainPageLink6}" press="goToFundedSheet" />
         </l:VerticalLayout>
       </l:HorizontalLayout>
 

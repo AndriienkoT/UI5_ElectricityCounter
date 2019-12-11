@@ -138,8 +138,8 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
   width: 40px;
 }
 .pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(3) .sapMLabel {
-  width: 70px;
-  padding-left: 60px;
+  width: 90px;
+  padding-left: 40px;
 }
 .pageFundedSheet .sapUiHLayoutChildWrapper:nth-child(5) .sapMLabel {
   width: 32px;
