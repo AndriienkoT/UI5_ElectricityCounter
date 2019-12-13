@@ -32,8 +32,9 @@
             </l:HorizontalLayout>
 
             <l:HorizontalLayout class="horLayFundedSheetButtons">
-              <Button id="oneTenantBtn" text="{i18n>FundedSheetPageButtonCounter}" press="onOpenCounterDialog" class="customBtnAccept" />
-              <Button id="allTenantsBtn" text="{i18n>FundedSheetPageButtonAllTenants}" class="customBtnAccept" press="onTableAllTenantsShow" />
+              <Button id="oneCounterBtn" text="{i18n>FundedSheetPageButtonCounter}" press="onOpenDialog" class="customBtnAccept" />
+              <Button id="oneTenantBtn" text="{i18n>FundedSheetPageButtonTenant}" press="onOpenDialog" class="customBtnAccept" />
+              <Button id="allTenantsBtn" text="{i18n>FundedSheetPageButtonAllTenants}" class="customBtnAccept" press="onTableAllGivenTenantsShow" />
             </l:HorizontalLayout>
           </l:VerticalLayout>
 

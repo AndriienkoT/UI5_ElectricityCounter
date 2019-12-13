@@ -18,7 +18,8 @@ sap.ui.define([
       this.onSortData(oTable);
     },
 
-    onOpenCounterDialog: async function (oEvent) {
+    onOpenDialog: async function (oEvent) {
+      var sParameter = oEvent.getParameter("id").split("-")[6];
       this.getView().byId("tableFundedSheet").setVisible(false);
 
       //update data in the Model
@@ -29,7 +30,12 @@ sap.ui.define([
       var that = this;
 
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-      var sDialogPlaceholder = bundle.getText("fundedSheetPageDialogPlaceholder");
+      var sDialogPlaceholder = "";
+      if (sParameter == "oneCounterBtn") {
+        sDialogPlaceholder = bundle.getText("fundedSheetPageCounterDialogPlaceholder");
+      } else if (sParameter == "oneTenantBtn") {
+        sDialogPlaceholder = bundle.getText("fundedSheetPageTenantDialogPlaceholder");
+      }
       var sBeginButton = bundle.getText("fundedSheetPageBeginButton");
       var sEndButton = bundle.getText("fundedSheetPageEndButton");
 
@@ -54,22 +60,33 @@ sap.ui.define([
           enabled: false,
           press: function () {
             var sText = sap.ui.getCore().byId('submitDialogInput').getValue();
-            var oChosenTenant = {};
+            var aChosenTenant = [];
 
-            //check whether exists tenant with entered counter
+            //check whether exists tenant with given parameter
             oData.forEach(function (tenant) {
-              if (tenant.counter === sText) {
-                oChosenTenant = tenant;
+              if (sParameter == "oneCounterBtn") {
+                if (tenant.counter === sText) {
+                  aChosenTenant.push(tenant);
+                }
+              } else if (sParameter == "oneTenantBtn") {
+                if (tenant.name === sText) {
+                  aChosenTenant.push(tenant);
+                }
               }
             });
 
-            //if does not exist, the message is shown, else onTableOneCounterShow() is called
-            if (Object.entries(oChosenTenant).length == 0) {
+            //if does not exist, the message is shown, else onTableAllGivenTenantsShow() is called
+            if (Object.entries(aChosenTenant).length == 0) {
               that.getView().byId("tableFundedSheet").setVisible(false);
-              var sMessageCounterDoesntExist = bundle.getText("fundedSheetPageMessageCounterDoesntExist", [sText]);
-              MessageToast.show(sMessageCounterDoesntExist);
+              var sMessageDoesntExist = "";
+              if (sParameter == "oneCounterBtn") {
+                sMessageDoesntExist = bundle.getText("fundedSheetPageMessageCounterDoesntExist", [sText]);
+              } else if (sParameter == "oneTenantBtn") {
+                sMessageDoesntExist = bundle.getText("fundedSheetPageMessageTenantDoesntExist", [sText]);
+              }
+              MessageToast.show(sMessageDoesntExist);
             } else {
-              that.onTableOneCounterShow(oChosenTenant);
+              that.onTableAllGivenTenantsShow(oEvent, aChosenTenant);
             }
             dialog.close();
           }
@@ -90,6 +107,7 @@ sap.ui.define([
     onInputChange: function (oEvent) {
 
       //enable buttons
+      this.getView().byId("oneCounterBtn").setEnabled(true);
       this.getView().byId("oneTenantBtn").setEnabled(true);
       this.getView().byId("allTenantsBtn").setEnabled(true);
     },
@@ -119,10 +137,12 @@ sap.ui.define([
 
       //in case entered data is valid, buttons will be enabled
       if (!bEnabled) {
+        this.getView().byId("oneCounterBtn").setEnabled(false);
         this.getView().byId("oneTenantBtn").setEnabled(false);
         this.getView().byId("allTenantsBtn").setEnabled(false);
         return false;
       } else {
+        this.getView().byId("oneCounterBtn").setEnabled(true);
         this.getView().byId("oneTenantBtn").setEnabled(true);
         this.getView().byId("allTenantsBtn").setEnabled(true);
         return true;
@@ -241,48 +261,13 @@ sap.ui.define([
       }
     },
 
-    onTableOneCounterShow: async function (tenant) {
-      this.onRemoveColumns();
-
-      //get year, start and end months. Check whether they are valid
-      var nYear = parseInt(this.getView().byId("year").getValue());
-      var nStartMonth = parseInt(this.getView().byId("monthStart").getValue());
-      var nEndMonth = parseInt(this.getView().byId("monthEnd").getValue());
-      if (this.onCheckEnter(nYear, nStartMonth, nEndMonth)) {
-        var oSelectedCountNumbs = {
-          "tenants": []
-        };
-
-        //in case start and end months were given, select data passing to given time slot
-        //otherwise select data of the whole given year
-        if (nStartMonth && nEndMonth) {
-          var aAllCountNumbs = [];
-          var aAllDifferences = [];
-          for (var i = nStartMonth; i <= nEndMonth; i++) {
-            if (tenant.counterNumbers[nYear][i] != undefined) {
-              aAllCountNumbs[i] = tenant.counterNumbers[nYear][i];
-              aAllDifferences[i] = tenant.differences[nYear][i];
-            }
-          }
-          oSelectedCountNumbs = this.onCreateDataForOneCounter(tenant, aAllCountNumbs, aAllDifferences, oSelectedCountNumbs, nYear, nStartMonth, nEndMonth);
-        } else {
-          var aAllCountNumbs = tenant.counterNumbers[nYear];
-          var aAllDifferences = tenant.differences[nYear];
-          oSelectedCountNumbs = this.onCreateDataForOneCounter(tenant, aAllCountNumbs, aAllDifferences, oSelectedCountNumbs, nYear, 1, 12);
-        }
-      }
-
-      //set data to the table
-      this.onSetSelectedDataToTable(oSelectedCountNumbs);
-    },
-
-    onTableAllTenantsShow: function (oEvent) {
+    onTableAllGivenTenantsShow: async function (oEvent, aTenants) {
       this.getView().byId("tableFundedSheet").setVisible(false);
 
       //update data in the Model
       var oController = BaseController;
       this.onRetrieveData(oController);
-
+      await new Promise(function(resolve){setTimeout(resolve, 100)});
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
@@ -291,7 +276,11 @@ sap.ui.define([
       var nEndMonth = parseInt(this.getView().byId("monthEnd").getValue());
       if (this.onCheckEnter(nYear, nStartMonth, nEndMonth)) {
         var that = this;
-        var aDataFromModel = this.getModel().getData().tenants;
+        if (aTenants == undefined) {
+          var aDataFromModel = this.getModel().getData().tenants;
+        } else {
+          var aDataFromModel = aTenants;
+        }
         var oSelectedCountNumbs = {
           "tenants": []
         };
