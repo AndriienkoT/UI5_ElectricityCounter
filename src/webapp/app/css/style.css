@@ -152,14 +152,17 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 }
 
 .horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(1),
-.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2){
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2),
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(3){
   width: 190px;
 }
-.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) {
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2),
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(3){
   margin-left: 40px;
 }
 .horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(1) .sapMBtn,
-.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) .sapMBtn{
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(2) .sapMBtn,
+.horLayFundedSheetButtons .sapUiHLayoutChildWrapper:nth-child(3) .sapMBtn{
   width: 100%;
 }
 .customTableFundedSheet.sapMList {
@@ -170,4 +173,7 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 }
 .customTableFundedSheet .sapMListTblHeader .sapMText {
   font-weight: bold;
+}
+html.sap-desktop .horLayFundedSheetButtons .sapMBtn:focus>.sapMFocusable {
+  outline: none;
 }
