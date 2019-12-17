@@ -89,6 +89,9 @@ sap.ui.define([
         var oController = BaseController;
         this.onWriteOneTenantToIDB(oController, oData);
 
+        var sMessageWasAdded = bundle.getText("createTenantPageMessageWasAdded");
+        MessageToast.show(sMessageWasAdded);
+
         //clear input fields
         this.onClearFields();
       }

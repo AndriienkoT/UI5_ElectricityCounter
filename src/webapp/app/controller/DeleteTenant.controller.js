@@ -1,6 +1,7 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController"
-], function (BaseController) {
+  "UI5toLearn/controller/BaseController",
+  'sap/m/MessageToast'
+], function (BaseController, MessageToast) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.DeleteTenant", {
     onInit: function () {
@@ -26,6 +27,10 @@ sap.ui.define([
       //delete tenant from IDB
       var oController = BaseController;
       this.onRemoveOneTenant(oController, sCounter);
+
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+      var sMessageWasRemoved = bundle.getText("deleteTenantPageMessageWasRemoved");
+      MessageToast.show(sMessageWasRemoved);
 
       //clear the input field
       this.getView().byId("counter").setValue(null);

@@ -56,6 +56,9 @@ sap.ui.define([
         var oController = BaseController;
         this.onEditOneTenant(oController, sHousing, sFloor, sRoom, sName, sCounter, sCoefficient);
 
+        var sMessageWasEdited = bundle.getText("editTenantPageMessageWasEdited");
+        MessageToast.show(sMessageWasEdited);
+
         //clear input fields
         this.onClearFields();
       }
@@ -76,7 +79,7 @@ sap.ui.define([
       this.getView().byId("room").setValue(null);
       this.getView().byId("name").setValue(null);
       this.getView().byId("counter").setValue(null);
-      this.getView().byId("coefficient").setValue("1");
+      this.getView().byId("coefficient").setValue(null);
     }
   });
 });
