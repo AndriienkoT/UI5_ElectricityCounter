@@ -1,4 +1,4 @@
-/*Header*/
+Header
 .customHeader .sapMText {
   font-size: 1.3rem;
 }
@@ -6,7 +6,13 @@
   background-color: steelblue;
   border-color: steelblue;
 }
-.horLayMainTitle .sapUiHLayoutChildWrapper, .horLayMainTitle .sapMText {
+.pageMain .sapUiHLayoutChildWrapper, .horLayMainTitle .sapMText {
+  width: 100%;
+}
+.pageMain .sapUiHLayoutChildWrapper {
+  width: 100%;
+}
+.horLayMainTitle .sapMText {
   width: 100%;
 }
 .customHeader .customHeaderText {
@@ -31,7 +37,7 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
   color: white;
 }
 
-/*Main page*/
+Main page
 .pageMain {
   background-image: url("../images/electricity.jpg");
   opacity: 0.8;
@@ -66,34 +72,34 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
   width: 100%;
 }
 
-/*Create Tenant page*/
-.pageCreateTenant .sapTntToolPageMainContentWrapper {
+Create Tenant page
+.pageStandard .sapTntToolPageMainContentWrapper {
   padding: 30px;
 }
-.verLayCreateTenant , .verLayCreateTenantBtn .sapMBtnBase.sapMBtn, .verLayCreateTenantBtn .sapMBtnInner{
+.verLayStandard , .verLayStandardBtn .sapMBtnBase.sapMBtn, .verLayStandardBtn .sapMBtnInner{
   width: 100%;
 }
-.pageCreateTenant .sapUiHLayoutChildWrapper {
+.pageStandard .sapUiHLayoutChildWrapper {
   position: relative;
   vertical-align: middle;
 }
-.pageCreateTenant .sapMLabel {
+.pageStandard .sapMLabel {
   width: 200px;
 }
-.pageCreateTenant .sapUiHLayoutChildWrapper:nth-child(2) {
+.pageStandard .sapUiHLayoutChildWrapper:nth-child(2) {
   width: 300px;
 }
-.verLayCreateTenantBtn {
+.verLayStandardBtn {
   width: 500px;
 }
-.verLayCreateTenantBtn .sapUiVltCell {
+.verLayStandardBtn .sapUiVltCell {
   margin-top: 50px;
 }
-.verLayCreateTenantBtn .sapMBtnInner {
+.verLayStandardBtn .sapMBtnInner {
   font-size: 1rem;
 }
 
-/*Enter Counter Number page*/
+Enter Counter Number page
 .customCurrentCounterNumber.sapMInputBaseHeightMargin {
   margin: 0;
 }
@@ -104,20 +110,20 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
   width: 100%;
   font-weight: bold;
 }
-.verLayCreateTenant .sapUiCalMonthPicker, .verLayCreateTenant .sapUiCalYearPicker {
+.verLayStandard .sapUiCalMonthPicker, .verLayStandard .sapUiCalYearPicker {
   width: 25rem;
 }
 .customTableEnterCounterNumber.sapMList {
   margin: 30px 0;
 }
-.customTableEnterCounterNumber .sapMListTblNavCol, .sapMListTblCell {
+.customTableEnterCounterNumber .sapMListTblNavCol, .customTableEnterCounterNumber .sapMListTblCell {
   vertical-align: middle;
 }
 .inputError .sapMInputBaseContentWrapper {
   border-color: red;
 }
 
-/*Funded Sheet page*/
+Funded Sheet page
 .pageFundedSheet .sapTntToolPageMainContentWrapper {
   padding: 30px;
 }
@@ -125,7 +131,7 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
   position: relative;
   vertical-align: middle;
 }
-.pageFundedSheet .verLayCreateTenant:nth-child(3) {
+.pageFundedSheet .verLayStandard:nth-child(3) {
   margin-top: 30px;
 }
 .verLayFundedSheet .sapUiVltCell.sapuiVltCell:nth-child(2) {
@@ -168,7 +174,7 @@ html.sap-desktop .sapContrast .customHeaderIcon.sapMBtn:focus>.sapMFocusable, ht
 .customTableFundedSheet.sapMList {
   margin: 30px 0;
 }
-.customTableFundedSheet .sapMListTblNavCol, .sapMListTblCell {
+.customTableFundedSheet .sapMListTblNavCol, .customTableFundedSheet .sapMListTblCell {
   vertical-align: middle;
 }
 .customTableFundedSheet .sapMListTblHeader .sapMText {

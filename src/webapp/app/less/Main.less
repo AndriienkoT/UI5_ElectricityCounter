@@ -1,0 +1,58 @@
+/* ====================== */
+/* CSS for Main.view.xml  */
+/* ====================== */
+@import "variables.less";
+
+.pageMain {
+  background-image: @main-background-image;
+  opacity: @main-background-image-opacity;
+  background-size: cover;
+  .sapUiHLayoutChildWrapper {
+    width: @page-main-child-wrapper-width;
+  }
+  .sapTntToolPageMainContentWrapper {
+    padding: @page-main-padding;
+  }
+  .verLayMain {
+    display: block;
+  }
+}
+
+.horLayMain {
+  width: @horizontal-layout-main-width;
+  margin-top: @horizontal-layout-main-margin-top;
+  .sapUiHLayoutChildWrapper {
+    display: block;
+    margin: @horizontal-layout-main-child-wrapper-margin;
+  }
+}
+.verLayMain {
+  .sapMLnk,
+  .sapMLnk:hover:not(.sapMLnkDsbl),
+  .sapMLnk:focus:not(.sapMLnkDsbl)  {
+    font-size: @vertical-layout-main-link-font-size;
+    color: @vertical-layout-main-link-color;
+    text-decoration: underline;
+  }
+  .sapMLnk {
+    &:focus {
+      outline: none;
+    }
+  }
+  .customHeaderText {
+    vertical-align: @custom-header-text-vertical-align;
+    font-size: @custom-header-text-font-size;
+    text-align: @custom-header-text-text-align;
+    color: @custom-header-text-color;
+    width: @custom-header-text-width;
+  }
+}
+html.sap-desktop {
+  .verLayMain {
+    .sapMLnk {
+      &:focus:not(.sapMLnkDsbl) {
+        outline: none;
+      }
+    }
+  }
+}

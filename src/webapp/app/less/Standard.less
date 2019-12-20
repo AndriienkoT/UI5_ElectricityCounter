@@ -1,0 +1,59 @@
+/* ========================================================================== */
+/* CSS for CreateTenant.view.xml, EditTenant.view.xml, DeleteTenant.view.xml  */
+/* CreatePDF.view.xml, EnterCounterNumber.view.xml                            */
+/* ========================================================================== */
+@import "variables.less";
+
+.pageStandard {
+  .sapTntToolPageMainContentWrapper {
+    padding: @page-standard-content-wrapper-padding;
+  }
+  .sapUiHLayoutChildWrapper {
+    position: relative;
+    vertical-align: middle;
+  }
+  .sapMLabel {
+    width: @page-standard-label-width;
+  }
+  .sapUiHLayoutChildWrapper {
+    &:nth-child(2) {
+      width: @page-standard-horizontal-layout-child-wrapper-width;
+    }
+  }
+  .sapMFocus {
+    .sapMInputBaseContentWrapper {
+      outline: none;
+    }
+  }
+}
+.verLayStandardBtn {
+  width: @vertical-layout-standard-button-width;
+  .sapMBtnBase.sapMBtn {
+    width: 100%;
+  }
+  .sapMBtnInner {
+    width: 100%;
+  }
+  .sapUiVltCell {
+    margin-top: @vertical-layout-standard-button-cell-margin-top;
+  }
+  .sapMBtnInner {
+    font-size: @vertical-layout-standard-button-inner-font-size;
+  }
+}
+/*Year- and MonthPicker*/
+.verLayStandard {
+  width: @vertical-layout-standard-width;
+  .sapUiCalMonthPicker, .sapUiCalYearPicker {
+    width: @vertical-layout-standard-picker-width;
+  }
+}
+html.sap-desktop {
+  .sapUiCalYearPicker, .sapUiCalMonthPicker {
+    .sapUiCalItem {
+      &:focus {
+        outline: none !important;
+      }
+    }
+  }
+}
