@@ -1,0 +1,97 @@
+/* ============================== */
+/* CSS for FundedSheet.view.xml   */
+/* ============================== */
+@import "variables.less";
+
+.pageFundedSheet {
+  .sapTntToolPageMainContentWrapper {
+    padding: @page-funded-sheet-content-wrapper-padding;
+  }
+  .sapUiHLayoutChildWrapper {
+    position: @page-funded-sheet-child-wrapper-position;
+    vertical-align: @page-funded-sheet-child-wrapper-vertical-align;
+    &:nth-child(1) {
+      .sapMLabel {
+        width: @page-funded-sheet-child-wrapper-child1-width;
+      }
+    }
+    &:nth-child(3) {
+      .sapMLabel {
+        width: @page-funded-sheet-child-wrapper-child3-width;
+        padding-left: @page-funded-sheet-child-wrapper-child3-padding-left;
+      }
+    }
+    &:nth-child(5) {
+      .sapMLabel {
+        width: @page-funded-sheet-child-wrapper-child5-width;
+        padding-left: @page-funded-sheet-child-wrapper-child5-padding-left;
+      }
+    }
+    &:nth-child(2),
+    &:nth-child(4),
+    &:nth-child(6) {
+      width: @page-funded-sheet-child-wrapper-child2-width;
+    }
+  }
+}
+.verLayFundedSheet {
+  .sapUiVltCell.sapuiVltCell {
+    &:nth-child(2) {
+      margin-top: @vertical-layout-funded-sheet-cell-child2-margin-top;
+    }
+  }
+  .sapMFocus {
+    .sapMInputBaseContentWrapper {
+      outline: none;
+    }
+  }
+}
+.customLabelFundedSheet.sapMLabel {
+  font-weight: @custom-label-font-weight;
+}
+#buttonStyle() {
+  width: @horizontal-layout-funded-sheet-buttons-child-wrapper-width;
+  .button {
+    .sapMBtn {
+      width: @horizontal-layout-funded-sheet-buttons-child-wrapper-button-width;
+    }
+  }
+}
+.horLayFundedSheetButtons {
+  .sapUiHLayoutChildWrapper {
+    &:nth-child(1) {
+      width: #buttonStyle[width];
+      #buttonStyle.button();
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      width: #buttonStyle[width];
+      margin-left: @horizontal-layout-funded-sheet-buttons-child-wrapper-margin-left;
+      #buttonStyle.button();
+    }
+  }
+}
+.customTableFundedSheet.sapMList {
+  margin: @custom-table-margin;
+}
+.customTableFundedSheet {
+  .sapMListTblNavCol, .sapMListTblCell {
+    vertical-align: @custom-table-vertical-align;
+  }
+  .sapMListTblHeader {
+    .sapMText {
+      font-weight: @custom-table-header-text-font-weight;
+    }
+  }
+}
+html.sap-desktop {
+  .horLayFundedSheetButtons {
+    .sapMBtn {
+      &:focus {
+        &>.sapMFocusable {
+          outline: none;
+        }
+      }
+    }
+  }
+}

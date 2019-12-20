@@ -1,0 +1,60 @@
+@import "Main.less";
+@import "Standard.less";
+@import "EnterCounterNumber.less";
+@import "FundedSheet.less";
+@import "variables.less";
+
+/*Header*/
+.customHeader {
+  .sapMText {
+    font-size: @custom-header-text-font-size;
+  }
+  .customHeaderText {
+    position: absolute;
+    vertical-align: @custom-header-text-vertical-align;
+    text-align: @custom-header-text-text-align;
+    margin-top: @custom-header-text-margin-top;
+    right: @custom-header-text-right;
+    min-height: @custom-header-text-min-height;
+    width: @custom-header-text-width;
+  }
+}
+.customHeader.sapContrast.sapTntToolHeader.sapMTB {
+  background-color: @custom-header-background-color;
+  border-color: @custom-header-background-color;
+}
+.horLayMainTitle {
+  .sapMText {
+    width: @custom-header-text-width;
+  }
+}
+html.sap-desktop {
+  .sapContrast {
+    .customHeaderIcon.sapMBtn {
+      &:focus {
+        &>.sapMFocusable {
+          outline: none;
+        }
+      }
+    }
+  }
+  .sapContrast.customHeaderIcon.sapMBtn {
+    &:focus {
+      &>.sapMFocusable {
+        outline: none;
+      }
+    }
+  }
+}
+
+/*Accept button*/
+.customBtnAccept.sapMBtn {
+  width: @custom-button-accept-width;
+}
+.customBtnAccept {
+  .sapMBtnInner {
+    background: @custom-button-accept-background;
+    color: @custom-button-accept-color;
+  }
+}
+

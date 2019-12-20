@@ -8,7 +8,7 @@
   controllerName="UI5toLearn.controller.CreatePDF" width="100%" height="100%"
   displayBlock="true">
 
-  <tnt:ToolPage id="createPDF" class="pageCreateTenant">
+  <tnt:ToolPage id="createPDF" class="pageStandard">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
         <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
@@ -22,10 +22,10 @@
 
     <tnt:mainContents>
       <ScrollContainer horizontal="false" vertical="true" height="100%">
-        <l:VerticalLayout class="verLayCreateTenant">
+        <l:VerticalLayout class="verLayStandard">
           <cal:YearPicker id="createPDFYP" columns="0" years="10" select="onSetCountNumbPrevMonth"/>
         </l:VerticalLayout>
-        <l:VerticalLayout class="verLayCreateTenant">
+        <l:VerticalLayout class="verLayStandard">
           <cal:MonthPicker id="createPDFMP" columns="12" months="12" select="onSetCountNumbPrevMonth"/>
         </l:VerticalLayout>
 

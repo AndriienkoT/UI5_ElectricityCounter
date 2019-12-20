@@ -7,7 +7,7 @@
   controllerName="UI5toLearn.controller.CreateTenant" width="100%" height="100%"
   displayBlock="true">
 
-  <tnt:ToolPage id="createTenant" class="pageCreateTenant">
+  <tnt:ToolPage id="createTenant" class="pageStandard">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
         <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
@@ -21,49 +21,49 @@
 
     <tnt:mainContents>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel1}"/>
           <Input id="housing" value="{/tenants/housing}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel2}"/>
           <Input id="floor" value="{/tenants/floor}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel3}"/>
           <Input id="room" value="{/tenants/room}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel4}"/>
           <Input id="name" value="{/tenants/name}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel5}"/>
           <Input id="counter" value="{/tenants/counter}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenant">
+      <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel6}"/>
           <Input id="coefficient" value="{/tenants/coefficient}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
-      <l:VerticalLayout class="verLayCreateTenantBtn">
+      <l:VerticalLayout class="verLayStandardBtn">
         <Button text="{i18n>createTenantPageButton}" press="onCreateTenant" class="customBtnAccept"/>
       </l:VerticalLayout>
 
