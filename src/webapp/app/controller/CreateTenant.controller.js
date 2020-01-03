@@ -15,8 +15,6 @@ sap.ui.define([
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered data from the input fields
-      var sHousing = this.getView().byId("housing").getValue();
-      var sFloor = this.getView().byId("floor").getValue();
       var sRoom = this.getView().byId("room").getValue();
       var sName = this.getView().byId("name").getValue();
       var sCounter = this.getView().byId("counter").getValue();
@@ -24,31 +22,23 @@ sap.ui.define([
 
       //check whether tenant with current counter already exists
       var allExistingTenants = null;
-      var bCounterExists = false;
       if (this.getModel() != undefined) {
         allExistingTenants = this.getModel().getProperty('/tenants');
       }
-      if (allExistingTenants != null) {
-        if (allExistingTenants.length > 0) {
-          for (var i = 0; i < allExistingTenants.length; i++) {
-            if (allExistingTenants[i].counter === sCounter) {
-              bCounterExists = true;
-            }
-          }
-        }
+      var nIndex;
+      if (allExistingTenants != null && allExistingTenants.length > 0) {
+          nIndex = allExistingTenants.findIndex(tenant => tenant.counter === sCounter);
       }
-      if (bCounterExists) {
+      if (nIndex != -1 && nIndex != undefined) {
         var sMessage1 = bundle.getText("createTenantPageMessageCounterExists");
         MessageToast.show(sMessage1);
-      } else if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
+      } else if (sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
         var sMessage2 = bundle.getText("createTenantPageMessageFields");
         MessageToast.show(sMessage2);
       } else {
 
         //create oData
         var oData = {
-          "housing" : sHousing,
-          "floor" : sFloor,
           "room" : sRoom,
           "name" : sName,
           "counter" : sCounter,
@@ -106,8 +96,6 @@ sap.ui.define([
     },
 
     onClearFields: function () {
-      this.getView().byId("housing").setValue(null);
-      this.getView().byId("floor").setValue(null);
       this.getView().byId("room").setValue(null);
       this.getView().byId("name").setValue(null);
       this.getView().byId("counter").setValue(null);

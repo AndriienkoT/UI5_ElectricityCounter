@@ -24,6 +24,8 @@ sap.ui.define([
     },
 
     goToCreateTenant: function (oEvent) {
+      // var oController = BaseController;
+      // this.onRemoveAllData(oController);
       this.getRouter().navTo("createTenant");
     },
 

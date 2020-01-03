@@ -18,6 +18,19 @@ sap.ui.define([
       this.getView().byId("YP").setYear(nYear - 100 + 2000);
     },
 
+    onAfterRendering: function () {
+      var aItems = this.getView().byId("tableEnterCounterNumber").getAggregation("items");
+      var bError = false;
+      aItems.forEach(item => {
+        if(item.getAggregation("cells")[4].hasStyleClass("inputError")) { bError = true; }
+      });
+      if(bError) {
+        this.getView().byId("enterCounterNumberSaveButton").setEnabled(false);
+      } else {
+        this.getView().byId("enterCounterNumberSaveButton").setEnabled(true);
+      }
+    },
+
     onEnterCounterNumber: function (oEvent) {
       //get entered value from the input field
       var nCurrentCounterNumber = oEvent.getParameter("value");
@@ -51,12 +64,13 @@ sap.ui.define([
       var nDifferenceWithPreviousMonth = (nCurrentCounterNumber - nPrevCountNumb) * nCoeffic;
 
       if (nDifferenceWithPreviousMonth >= 0) {
-        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[6].removeStyleClass("inputError");
-        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[7].setText(nDifferenceWithPreviousMonth);
+        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[4].removeStyleClass("inputError");
+        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[5].setText(nDifferenceWithPreviousMonth);
       } else {
-        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[6].addStyleClass("inputError");
-        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[7].setText(null);
+        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[4].addStyleClass("inputError");
+        this.getView().byId("tableEnterCounterNumber").getAggregation("items")[sItemIdInTable].getAggregation("cells")[5].setText(null);
       }
+      this.onAfterRendering();
     },
 
     onSaveCounterNumbers: function (oEvent) {
@@ -67,12 +81,13 @@ sap.ui.define([
       //for each tenant get value from the input field and set it to the Model
       var aItems = this.getView().byId("tableEnterCounterNumber").getAggregation("items");
       var aIndexes = this.getView().byId("tableEnterCounterNumber").getBindingInfo("items").binding.aIndices;
-      for (var itemIndex = 0; itemIndex < aItems.length; itemIndex++) {
+      var nItemIndex = 0;
+      aItems.forEach(item => {
         //get id of current tenant in the Model
-        var nItemIdInModel = aIndexes[itemIndex];
+        var nItemIdInModel = aIndexes[nItemIndex];
 
-        var sCountNumb = aItems[itemIndex].getAggregation("cells")[6].getValue();
-        var sDifference = aItems[itemIndex].getAggregation("cells")[7].getText();
+        var sCountNumb = item.getAggregation("cells")[4].getValue();
+        var sDifference = item.getAggregation("cells")[5].getText();
         if (sCountNumb){
           var oData1 = {
             counterNumber : sCountNumb
@@ -120,9 +135,11 @@ sap.ui.define([
         }
 
         //clear the input field and the text field
-        aItems[itemIndex].getAggregation("cells")[6].setValue(null);
-        aItems[itemIndex].getAggregation("cells")[7].setText(null);
-      }
+        item.getAggregation("cells")[4].setValue(null);
+        item.getAggregation("cells")[5].setText(null);
+
+        nItemIndex++;
+      });
 
       //navigate to the Main page
       this.getRouter().navTo("main");
@@ -131,10 +148,10 @@ sap.ui.define([
     onNavBackWithoutSaving: function (oEvent) {
       //clear the input field and the text field
       var aItems = this.getView().byId("tableEnterCounterNumber").getAggregation("items");
-      for (var itemIndex = 0; itemIndex < aItems.length; itemIndex++) {
-        aItems[itemIndex].getAggregation("cells")[6].setValue(null);
-        aItems[itemIndex].getAggregation("cells")[7].setText(null);
-      }
+      aItems.forEach(item => {
+        item.getAggregation("cells")[4].setValue(null);
+        item.getAggregation("cells")[5].setText(null);
+      })
 
       //set current year and month as selected
       var nMonth = new Date().getMonth();

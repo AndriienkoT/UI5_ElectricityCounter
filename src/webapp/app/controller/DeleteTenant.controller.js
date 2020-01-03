@@ -10,30 +10,35 @@ sap.ui.define([
     },
 
     onDeleteTenant: function (oEvent) {
+      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered value from the input field
       var sCounter = this.getView().byId("counter").getValue();
+      if (sCounter == "") {
+        var sMessageEnterCounter = bundle.getText("deleteTenantPageMessageEnterCounter");
+        MessageToast.show(sMessageEnterCounter);
+      } else {
+        var allStillExistingTenants = this.getModel().getProperty('/tenants');
 
-      var allStillExistingTenants = this.getModel().getProperty('/tenants');
+        // remove tenant
+        var nIndex = allStillExistingTenants.findIndex(tenant => tenant.counter === sCounter);
+        if (nIndex == -1) {
+          var sMessageCounterDoesntExist = bundle.getText("deleteTenantPageMessageCounterDoesntExist");
+          MessageToast.show(sMessageCounterDoesntExist);
+        } else {
+          allStillExistingTenants.splice(nIndex, 1);
 
-      // remove tenant
-      for (var i = 0; i < allStillExistingTenants.length; i++) {
-        if (allStillExistingTenants[i].counter === sCounter) {
-          allStillExistingTenants.splice(i, 1);
-          break;
+          //delete tenant from IDB
+          var oController = BaseController;
+          this.onRemoveOneTenant(oController, sCounter);
+
+          var sMessageWasRemoved = bundle.getText("deleteTenantPageMessageWasRemoved");
+          MessageToast.show(sMessageWasRemoved);
         }
+
+        //clear the input field
+        this.getView().byId("counter").setValue(null);
       }
-
-      //delete tenant from IDB
-      var oController = BaseController;
-      this.onRemoveOneTenant(oController, sCounter);
-
-      var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-      var sMessageWasRemoved = bundle.getText("deleteTenantPageMessageWasRemoved");
-      MessageToast.show(sMessageWasRemoved);
-
-      //clear the input field
-      this.getView().byId("counter").setValue(null);
     },
 
     onNavBackWithoutSaving: function (oEvent) {

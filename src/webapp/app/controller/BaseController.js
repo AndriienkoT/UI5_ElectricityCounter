@@ -40,7 +40,7 @@ sap.ui.define([
 
     onSortData: function (oTable) {
       var oBinding = oTable.getBinding("items");
-      var oSorter = new Sorter("housing", null);
+      var oSorter = new Sorter("room", null);
       oSorter.fnCompare = function naturalSorter(as, bs) {
         var a, b, a1, b1, i = 0, n, L, rx = /(\.\d+)|(\d+(\.\d+)?)|([^\d.]+)|(\.\D+)|(\.$)/g;
         if (as === bs) {
@@ -116,10 +116,9 @@ sap.ui.define([
 
       //write to DB
       var objectStore = transaction.objectStore("tenants");
-      oObjects.forEach(function (tenant) {
+      oObjects.forEach(tenant => {
         var request = objectStore.add(tenant);
-        request.onsuccess = function (oEvent) {
-        };
+        request.onsuccess = function (oEvent) { };
       });
     },
 
@@ -139,11 +138,10 @@ sap.ui.define([
       //write to DB
       var objectStore = transaction.objectStore("tenants");
       var request = objectStore.add(tenant);
-      request.onsuccess = function (oEvent) {
-      };
+      request.onsuccess = function (oEvent) { };
     },
 
-    onEditOneTenant: function (oController, sHousing, sFloor, sRoom, sName, sCounter, sCoefficient) {
+    onEditOneTenant: function (oController, sRoom, sName, sCounter, sCoefficient) {
 
       //get the object store
       var objectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
@@ -156,12 +154,6 @@ sap.ui.define([
           //if there is a tenant with given key, change teh data of it
           if (cursor.value.counter === sCounter) {
             var tenant = cursor.value;
-            if (tenant.housing !== sHousing) {
-              tenant.housing = sHousing;
-            }
-            if (tenant.floor !== sFloor) {
-              tenant.floor = sFloor;
-            }
             if (tenant.room !== sRoom) {
               tenant.room = sRoom;
             }
@@ -200,8 +192,7 @@ sap.ui.define([
 
         //put the updated object back into the IDB
         var requestUpdate = objectStore.put(tenant);
-        requestUpdate.onerror = function(event) {
-        };
+        requestUpdate.onerror = function(event) { };
         requestUpdate.onsuccess = function(event) {
           console.log("counter numbers are updated");
         };
@@ -215,18 +206,18 @@ sap.ui.define([
       };
     },
 
-    // onRemoveAllData: function (oController) {
-    //   var objectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
-    //   objectStore.openCursor().onsuccess = function(oEvent) {
-    //     var cursor = oEvent.target.result;
-    //     if (cursor) {
-    //       cursor.delete();
-    //       cursor.continue();
-    //     } else {
-    //       console.log("remove all data success");
-    //     }
-    //   };
-    // },
+    onRemoveAllData: function (oController) {
+      var objectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
+      objectStore.openCursor().onsuccess = function(oEvent) {
+        var cursor = oEvent.target.result;
+        if (cursor) {
+          cursor.delete();
+          cursor.continue();
+        } else {
+          console.log("remove all data success");
+        }
+      };
+    },
 
     onRetrieveData: function (oController) {
 
