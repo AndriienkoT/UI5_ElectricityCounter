@@ -23,20 +23,6 @@
 
       <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
-          <Label text="{i18n>tenantLabel1}"/>
-          <Input id="housing" value="{/tenants/housing}"/>
-        </l:HorizontalLayout>
-      </l:VerticalLayout>
-
-      <l:VerticalLayout class="verLayStandard">
-        <l:HorizontalLayout>
-          <Label text="{i18n>tenantLabel2}"/>
-          <Input id="floor" value="{/tenants/floor}"/>
-        </l:HorizontalLayout>
-      </l:VerticalLayout>
-
-      <l:VerticalLayout class="verLayStandard">
-        <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel3}"/>
           <Input id="room" value="{/tenants/room}"/>
         </l:HorizontalLayout>

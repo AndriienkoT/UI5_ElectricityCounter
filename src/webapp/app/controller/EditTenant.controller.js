@@ -13,54 +13,46 @@ sap.ui.define([
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered data from the input fields
-      var sHousing = this.getView().byId("housing").getValue();
-      var sFloor = this.getView().byId("floor").getValue();
       var sRoom = this.getView().byId("room").getValue();
       var sName = this.getView().byId("name").getValue();
       var sCounter = this.getView().byId("counter").getValue();
       var sCoefficient = this.getView().byId("coefficient").getValue();
 
-      if (sHousing == "" || sFloor == "" || sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
+      if (sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
         var sMessage = bundle.getText("editTenantPageMessageFields");
         MessageToast.show(sMessage);
       } else {
 
         // edit tenant in the Model
         var allStillExistingTenants = this.getModel().getProperty('/tenants');
-        var nIndex = 0;
-        for (nIndex = 0; nIndex < allStillExistingTenants.length; nIndex++) {
-          if (allStillExistingTenants[nIndex].counter === sCounter) {
-            break;
+        var nIndex = allStillExistingTenants.findIndex(tenant => tenant.counter === sCounter);
+        if (nIndex == -1) {
+          var sMessage = bundle.getText("editTenantPageMessageCounterDoesntExists");
+          MessageToast.show(sMessage);
+        } else {
+          var oTenant = allStillExistingTenants[nIndex];
+          if(oTenant.room !== sRoom){
+            oTenant.room = sRoom;
           }
-        }
-        var oTenant = allStillExistingTenants[nIndex];
-        if(oTenant.housing !== sHousing){
-          oTenant.housing = sHousing;
-        }
-        if(oTenant.floor !== sFloor){
-          oTenant.floor = sFloor;
-        }
-        if(oTenant.room !== sRoom){
-          oTenant.room = sRoom;
-        }
-        if(oTenant.name !== sName){
-          oTenant.name = sName;
-        }
-        if(oTenant.coefficient !== sCoefficient){
+          if(oTenant.name !== sName){
+            oTenant.name = sName;
+          }
+          if(oTenant.coefficient !== sCoefficient){
 
-          oTenant.coefficient = sCoefficient;
+            oTenant.coefficient = sCoefficient;
+          }
+          allStillExistingTenants.splice(nIndex, 1, oTenant);
+
+          //update data in IDB
+          var oController = BaseController;
+          this.onEditOneTenant(oController, sRoom, sName, sCounter, sCoefficient);
+
+          var sMessageWasEdited = bundle.getText("editTenantPageMessageWasEdited");
+          MessageToast.show(sMessageWasEdited);
+
+          //clear input fields
+          this.onClearFields();
         }
-        allStillExistingTenants.splice(nIndex, 1, oTenant);
-
-        //update data in IDB
-        var oController = BaseController;
-        this.onEditOneTenant(oController, sHousing, sFloor, sRoom, sName, sCounter, sCoefficient);
-
-        var sMessageWasEdited = bundle.getText("editTenantPageMessageWasEdited");
-        MessageToast.show(sMessageWasEdited);
-
-        //clear input fields
-        this.onClearFields();
       }
     },
 
@@ -74,8 +66,6 @@ sap.ui.define([
     },
 
     onClearFields: function () {
-      this.getView().byId("housing").setValue(null);
-      this.getView().byId("floor").setValue(null);
       this.getView().byId("room").setValue(null);
       this.getView().byId("name").setValue(null);
       this.getView().byId("counter").setValue(null);

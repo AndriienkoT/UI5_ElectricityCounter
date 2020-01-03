@@ -49,10 +49,17 @@
   }
 }
 html.sap-desktop {
-  .sapUiCalYearPicker, .sapUiCalMonthPicker {
-    .sapUiCalItem {
-      &:focus {
-        outline: none !important;
+  .pageStandard {
+    .sapUiCalYearPicker, .sapUiCalMonthPicker {
+      .sapUiCalItem {
+        &:focus {
+          outline: none !important;
+        }
+      }
+    }
+    .sapMBtn {
+      &:focus>.sapMFocusable {
+        outline: none;
       }
     }
   }

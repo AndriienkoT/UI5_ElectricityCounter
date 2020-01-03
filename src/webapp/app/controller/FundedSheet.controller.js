@@ -25,7 +25,7 @@ sap.ui.define([
       //update data in the Model
       var oController = BaseController;
       this.onRetrieveData(oController);
-      await new Promise(function(resolve){setTimeout(resolve, 100)});
+      await new Promise(function(resolve){ setTimeout(resolve, 100) });
       var oData = this.getModel().getData().tenants;
       var that = this;
 
@@ -63,7 +63,7 @@ sap.ui.define([
             var aChosenTenant = [];
 
             //check whether exists tenant with given parameter
-            oData.forEach(function (tenant) {
+            oData.forEach(tenant => {
               if (sParameter == "oneCounterBtn") {
                 if (tenant.counter === sText) {
                   aChosenTenant.push(tenant);
@@ -157,8 +157,6 @@ sap.ui.define([
 
         //create oData and pass it to the oSelectedCountNumbs
         var oData = {
-          "housing": tenant.housing,
-          "floor": tenant.floor,
           "room": tenant.room,
           "name": tenant.name,
           "counter": tenant.counter,
@@ -198,8 +196,6 @@ sap.ui.define([
 
         //create oData and pass it to the oSelectedCountNumbs
         var oData = {
-          "housing": tenant.housing,
-          "floor": tenant.floor,
           "room": tenant.room,
           "name": tenant.name,
           "counter": tenant.counter,
@@ -234,13 +230,13 @@ sap.ui.define([
     onRemoveColumns: function() {
 
       //remove aggregation column
-      while (this.getView().byId("tableFundedSheet").getColumns().length != 6) {
-        this.getView().byId("tableFundedSheet").removeColumn(6);
+      while (this.getView().byId("tableFundedSheet").getColumns().length != 4) {
+        this.getView().byId("tableFundedSheet").removeColumn(4);
       }
 
       //remove cell from the item binding template
-      while (this.getView().byId("tableFundedSheet").getBindingInfo("items").template.getCells().length != 6) {
-        this.getView().byId("tableFundedSheet").getBindingInfo("items").template.removeCell(6);
+      while (this.getView().byId("tableFundedSheet").getBindingInfo("items").template.getCells().length != 4) {
+        this.getView().byId("tableFundedSheet").getBindingInfo("items").template.removeCell(4);
       }
     },
 
@@ -267,7 +263,7 @@ sap.ui.define([
       //update data in the Model
       var oController = BaseController;
       this.onRetrieveData(oController);
-      await new Promise(function(resolve){setTimeout(resolve, 100)});
+      await new Promise(function(resolve){ setTimeout(resolve, 100) });
       this.onRemoveColumns();
 
       //get year, start and end months. Check whether they are valid
@@ -290,7 +286,7 @@ sap.ui.define([
         //otherwise select data of the whole given year
         var nIndex = 0;
         if (aDataFromModel instanceof Array) {
-          aDataFromModel.forEach(function (tenant) {
+          aDataFromModel.forEach(tenant => {
             if (nStartMonth && nEndMonth) {
               var aAllCountNumbs = [];
               var aAllDifferences = [];
@@ -323,7 +319,7 @@ sap.ui.define([
       //get all columns and check whether the column with given month exists
       var aColumns = this.getView().byId("tableFundedSheet").getAggregation("columns");
       var bExists = false;
-      aColumns.forEach(function (column) {
+      aColumns.forEach(column => {
         if (column.getAggregation("header").getText() === month.toString()) {
           bExists = true;
         }
@@ -334,7 +330,7 @@ sap.ui.define([
       if (!bExists) {
         var oColumn1 = new sap.m.Column({
           header: new sap.m.Text({text: month}),
-          width: "80px"
+          width: "100px"
         });
         oColumn1.setStyleClass("customTableHeaderText");
         this.getView().byId("tableFundedSheet").addColumn(oColumn1);
@@ -343,7 +339,7 @@ sap.ui.define([
         var sColumnText = bundle.getText("fundedSheetPageAddColumnText");
         var oColumn2 = new sap.m.Column({
           header: new sap.m.Text({text: sColumnText}),
-          width: "80px",
+          width: "100px",
           styleClass: "customTableHeaderText"
         });
         this.getView().byId("tableFundedSheet").addColumn(oColumn2);
