@@ -7,10 +7,6 @@ sap.ui.define([
       var oController = BaseController;
       this.onRetrieveData(oController);
 
-      //sort data
-      var oTable = this.getView().byId("tableEnterCounterNumber");
-      this.onSortData(oTable);
-
       //set current year and month as selected
       var nMonth = new Date().getMonth();
       var nYear = new Date().getYear();
@@ -29,6 +25,10 @@ sap.ui.define([
       } else {
         this.getView().byId("enterCounterNumberSaveButton").setEnabled(true);
       }
+
+      //sort data
+      var oTable = this.getView().byId("tableEnterCounterNumber");
+      this.onSortTableData(oTable);
     },
 
     onEnterCounterNumber: function (oEvent) {

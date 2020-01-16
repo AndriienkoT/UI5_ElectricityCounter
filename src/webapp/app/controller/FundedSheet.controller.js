@@ -15,7 +15,7 @@ sap.ui.define([
     onAfterRendering: function () {
       //sort data
       var oTable = this.getView().byId("tableFundedSheet");
-      this.onSortData(oTable);
+      this.onSortTableData(oTable);
     },
 
     onOpenDialog: async function (oEvent) {

@@ -47,7 +47,7 @@ sap.ui.define([
 
       //sort data
       var oTable = this.getView().byId("tableCreatePDF");
-      this.onSortData(oTable);
+      this.onSortTableData(oTable);
     },
 
     onSetCountNumbPrevMonth: function (oEvent) {
@@ -72,7 +72,10 @@ sap.ui.define([
         bundle.getText("PDFtenantLabel7"),
         bundle.getText("PDFtenantLabel8")
       ];
+
+
       var oData = this.getView().byId("tableCreatePDF").getModel("Model").getData().tenants;
+      oData.sort(this.onSortData());
       var data = [];
       oData.forEach(tenant => {
         var nMonthCalc = nMonth;
