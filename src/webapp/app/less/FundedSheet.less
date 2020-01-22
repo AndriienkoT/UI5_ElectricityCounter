@@ -33,6 +33,9 @@
       width: @page-funded-sheet-child-wrapper-child2-width;
     }
   }
+  .sapMBtnBack, .sapMBtnTransparent {
+    background-color: @page-funded-sheet-btn-background-color;
+  }
 }
 .verLayFundedSheet {
   .sapUiVltCell.sapuiVltCell {
@@ -63,11 +66,20 @@
       width: #buttonStyle[width];
       #buttonStyle.button();
     }
-    &:nth-child(2),
-    &:nth-child(3) {
-      width: #buttonStyle[width];
-      margin-left: @horizontal-layout-funded-sheet-buttons-child-wrapper-margin-left;
+    &:nth-child(2) {
+      width: @horizontal-layout-funded-sheet-buttons-child-wrapper-child2-width;
+      margin-left: @horizontal-layout-funded-sheet-buttons-child-wrapper-child2-margin-left;
+      .sapMLabel {
+        font-weight: @horizontal-layout-funded-sheet-buttons-child-wrapper-child2-label-font-weight;
+      }
+    }
+    &:nth-child(3),
+    &:nth-child(4) {
+      width: @horizontal-layout-funded-sheet-buttons-child-wrapper-width;
       #buttonStyle.button();
+    }
+    &:nth-child(4) {
+      margin-left: @horizontal-layout-funded-sheet-buttons-child-wrapper-child4-margin-left;
     }
   }
 }

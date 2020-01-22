@@ -1,12 +1,48 @@
 sap.ui.define([
   "UI5toLearn/controller/BaseController",
-  'sap/m/MessageToast'
-], function (BaseController, MessageToast) {
+  'sap/m/MessageToast',
+  'sap/ui/model/Filter'
+], function (BaseController, MessageToast, Filter) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.EditTenant", {
     onInit: function () {
       var oController = BaseController;
       this.onRetrieveData(oController);
+    },
+
+    onItemSelected: function (oEvent) {
+      //create array of ids
+      var sInputId = oEvent.getParameter("id").split("-")[6];
+      var aIds = ["counter"];
+      if (sInputId == "room") {
+        aIds.push("name");
+      } else if (sInputId == "name") {
+        aIds.push("room");
+      }
+
+      //filter the bindings of the comboboxes by selected value/s
+      var oSelectedItem = oEvent.getParameters("selectedItem").selectedItem;
+      if (oSelectedItem != null) {
+        var sTerm = oSelectedItem.getText();
+        var aFilters = [];
+        if (sTerm) {
+          aFilters.push(new Filter(sInputId, sap.ui.model.FilterOperator.EQ, sTerm));
+        }
+        aIds.forEach(id => {
+          this.getView().byId(id).getBinding("items").filter(aFilters);
+        });
+      } else {
+
+        //if no value is selected, update bindings
+        aIds.forEach(id => {
+          var oTemplate = this.getView().byId(id).getBindingInfo("items").template;
+          this.getView().byId(id).unbindItems();
+          this.getView().byId(id).bindItems({
+            path: "Model>/tenants",
+            template: oTemplate
+          });
+        });
+      }
     },
 
     onEditTenant: function (oEvent) {

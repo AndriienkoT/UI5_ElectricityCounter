@@ -2,14 +2,19 @@ sap.ui.define([
   "UI5toLearn/controller/BaseController",
   'sap/m/MessageToast',
   'sap/m/Dialog',
-  'sap/m/ButtonType'
-], function (BaseController, MessageToast, Dialog, ButtonType) {
+  'sap/m/ButtonType',
+  'sap/ui/model/Filter'
+], function (BaseController, MessageToast, Dialog, ButtonType, Filter) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.FundedSheet", {
 
     onInit: function () {
       var oController = BaseController;
       this.onRetrieveData(oController);
+
+      this.getView().byId("facetFilterTenant").setModel(this.getModel(),"Model");
+      this.getView().byId("facetFilterCounter").setModel(this.getModel(),"Model");
+      // this.getView().byId("facetFilter").setModel(this.getModel(),"Model");
     },
 
     onAfterRendering: function () {
@@ -104,11 +109,36 @@ sap.ui.define([
       dialog.open();
     },
 
+    handleConfirm: function (oEvent) {
+      var aFacetFilter = [];
+      aFacetFilter.push(this.getView().byId("facetFilterTenant"));
+      aFacetFilter.push(this.getView().byId("facetFilterCounter"));
+
+      var aFacetFilterLists = [];
+      aFacetFilter.forEach(oFacetFilter => {
+        oFacetFilter.getLists().filter(function(oList) {
+          if (oList.getSelectedItems().length) {
+            aFacetFilterLists.push(oList);
+          }
+        });
+      })
+      if (aFacetFilterLists.length) {
+        var oFilter = new Filter(aFacetFilterLists.map(function(oList) {
+          return new Filter(oList.getSelectedItems().map(function(oItem) {
+            return new Filter(oList.getTitle(), "EQ", oItem.getText());
+          }), false);
+        }), true);
+        this.getView().byId("tableFundedSheet").getBinding("items").filter(oFilter);
+      } else {
+        this.getView().byId("tableFundedSheet").getBinding("items").filter(oFilter);
+      }
+    },
+
     onInputChange: function (oEvent) {
 
       //enable buttons
-      this.getView().byId("oneCounterBtn").setEnabled(true);
-      this.getView().byId("oneTenantBtn").setEnabled(true);
+      // this.getView().byId("oneCounterBtn").setEnabled(true);
+      // this.getView().byId("oneTenantBtn").setEnabled(true);
       this.getView().byId("allTenantsBtn").setEnabled(true);
     },
 
@@ -137,13 +167,13 @@ sap.ui.define([
 
       //in case entered data is valid, buttons will be enabled
       if (!bEnabled) {
-        this.getView().byId("oneCounterBtn").setEnabled(false);
-        this.getView().byId("oneTenantBtn").setEnabled(false);
+        // this.getView().byId("oneCounterBtn").setEnabled(false);
+        // this.getView().byId("oneTenantBtn").setEnabled(false);
         this.getView().byId("allTenantsBtn").setEnabled(false);
         return false;
       } else {
-        this.getView().byId("oneCounterBtn").setEnabled(true);
-        this.getView().byId("oneTenantBtn").setEnabled(true);
+        // this.getView().byId("oneCounterBtn").setEnabled(true);
+        // this.getView().byId("oneTenantBtn").setEnabled(true);
         this.getView().byId("allTenantsBtn").setEnabled(true);
         return true;
       }
