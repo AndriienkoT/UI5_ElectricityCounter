@@ -15,7 +15,7 @@
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
         </Button>
-        <Text text="{i18n>FundedSheetPageTitle}" class="customHeaderText" />
+        <Text text="{i18n>fundedSheetPageTitle}" class="customHeaderText" />
       </tnt:ToolHeader>
     </tnt:header>
 
@@ -23,18 +23,46 @@
       <ScrollContainer horizontal="true" vertical="true" height="100%">
           <l:VerticalLayout class="verLayFundedSheet">
             <l:HorizontalLayout>
-              <Label text="{i18n>FundedSheetPageLabelYear}" class="customLabelFundedSheet" />
+              <Label text="{i18n>fundedSheetPageLabelYear}" class="customLabelFundedSheet" />
               <Input id="year" type="Number" liveChange="onInputChange" />
-              <Label text="{i18n>FundedSheetPageLabelStartMonth}" class="customLabelFundedSheet" />
+              <Label text="{i18n>fundedSheetPageLabelStartMonth}" class="customLabelFundedSheet" />
               <Input id="monthStart" type="Number" liveChange="onInputChange" />
-              <Label text="{i18n>FundedSheetPageLabelEndMonth}" class="customLabelFundedSheet" />
+              <Label text="{i18n>fundedSheetPageLabelEndMonth}" class="customLabelFundedSheet" />
               <Input id="monthEnd" type="Number" liveChange="onInputChange" />
             </l:HorizontalLayout>
 
-            <l:HorizontalLayout class="horLayFundedSheetButtons">
-              <Button id="oneCounterBtn" text="{i18n>FundedSheetPageButtonCounter}" press="onOpenDialog" class="customBtnAccept" />
-              <Button id="oneTenantBtn" text="{i18n>FundedSheetPageButtonTenant}" press="onOpenDialog" class="customBtnAccept" />
-              <Button id="allTenantsBtn" text="{i18n>FundedSheetPageButtonAllTenants}" class="customBtnAccept" press="onTableAllGivenTenantsShow" />
+            <l:HorizontalLayout id="horLayFacet" class="horLayFundedSheetButtons">
+              <!--<Button id="oneCounterBtn" text="{i18n>fundedSheetPageButtonCounter}" press="onOpenDialog" class="customBtnAccept" />-->
+              <!--<Button id="oneTenantBtn" text="{i18n>fundedSheetPageButtonTenant}" press="onOpenDialog" class="customBtnAccept" />-->
+              <Button id="allTenantsBtn" text="{i18n>fundedSheetPageButtonAllTenants}" class="customBtnAccept" press="onTableAllGivenTenantsShow" />
+              <Label text="{i18n>fundedSheetPageLabel}"/>
+              <FacetFilter
+                id="facetFilterTenant"
+                showReset="false"
+                confirm="handleConfirm">
+                <FacetFilterList
+                  title="name"
+                  mode="MultiSelect"
+                  items="{path:'Model>/tenants'}" >
+                  <FacetFilterItem
+                    text="{Model>name}"
+                    key="{Model>counter}" />
+                </FacetFilterList>
+              </FacetFilter>
+
+              <FacetFilter
+                id="facetFilterCounter"
+                showReset="false"
+                confirm="handleConfirm">
+                <FacetFilterList
+                  title="counter"
+                  mode="MultiSelect"
+                  items="{path:'Model>/tenants'}" >
+                  <FacetFilterItem
+                    text="{Model>counter}"
+                    key="{Model>counter}" />
+                </FacetFilterList>
+              </FacetFilter>
             </l:HorizontalLayout>
           </l:VerticalLayout>
 

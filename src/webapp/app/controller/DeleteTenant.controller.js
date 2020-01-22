@@ -1,12 +1,36 @@
 sap.ui.define([
   "UI5toLearn/controller/BaseController",
-  'sap/m/MessageToast'
-], function (BaseController, MessageToast) {
+  'sap/m/MessageToast',
+  'sap/ui/model/Filter'
+], function (BaseController, MessageToast, Filter) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.DeleteTenant", {
     onInit: function () {
       var oController = BaseController;
       this.onRetrieveData(oController);
+    },
+
+    onItemSelected: function (oEvent) {
+
+      //filter the counter numbers by selected tenant name
+      var oSelectedItem = oEvent.getParameters("selectedItem").selectedItem;
+      if (oSelectedItem != null) {
+        var sTerm = oSelectedItem.getText();
+        var aFilters = [];
+        if (sTerm) {
+          aFilters.push(new Filter("name", sap.ui.model.FilterOperator.EQ, sTerm));
+        }
+        this.getView().byId("counter").getBinding("items").filter(aFilters);
+      } else {
+
+        //if no tenant name is selected, update bindings
+        var oTemplate = this.getView().byId("counter").getBindingInfo("items").template;
+        this.getView().byId("counter").unbindItems();
+        this.getView().byId("counter").bindItems({
+          path: "Model>/tenants",
+          template: oTemplate
+        });
+      }
     },
 
     onDeleteTenant: function (oEvent) {

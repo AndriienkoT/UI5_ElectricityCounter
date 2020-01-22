@@ -1,6 +1,8 @@
 {
-  "tenants": [
-
+  "tenants": [],
+  "filters": [
+    {"filterName" : "name"},
+    {"filterName" : "counter"}
   ]
 }
 
