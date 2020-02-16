@@ -1,5 +1,5 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController",
+  "UI5toLearn/controller/BaseController.controller",
   'sap/m/MessageToast',
   'sap/m/Dialog',
   'sap/m/ButtonType',
@@ -128,8 +128,6 @@ sap.ui.define([
             return new Filter(oList.getTitle(), "EQ", oItem.getText());
           }), false);
         }), true);
-        this.getView().byId("tableFundedSheet").getBinding("items").filter(oFilter);
-      } else {
         this.getView().byId("tableFundedSheet").getBinding("items").filter(oFilter);
       }
     },

@@ -15,29 +15,29 @@
 
       <l:HorizontalLayout class="horLayMain">
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink1}" press="goToCreateTenant"/>
+          <Link id="createTenantLink" text="{i18n>mainPageLink1}" press="goToCreateTenant"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink2}" press="goToEditTenant"/>
+          <Link id="editTenantLink" text="{i18n>mainPageLink2}" press="goToEditTenant"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink3}" press="goToDeleteTenant"/>
+          <Link id="deleteTenantLink" text="{i18n>mainPageLink3}" press="goToDeleteTenant"/>
         </l:VerticalLayout>
       </l:HorizontalLayout>
 
       <l:HorizontalLayout class="horLayMain">
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink4}" press="goToCreatePDF"/>
+          <Link id="createPDFLink" text="{i18n>mainPageLink4}" press="goToCreatePDF"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink5}" press="goToEnterCounterNumber"/>
+          <Link id="enterCounterNumberLink" text="{i18n>mainPageLink5}" press="goToEnterCounterNumber"/>
         </l:VerticalLayout>
 
         <l:VerticalLayout class="verLayMain">
-          <Link text="{i18n>mainPageLink6}" press="goToFundedSheet" />
+          <Link id="fundedSheetLink" text="{i18n>mainPageLink6}" press="goToFundedSheet" />
         </l:VerticalLayout>
       </l:HorizontalLayout>
 

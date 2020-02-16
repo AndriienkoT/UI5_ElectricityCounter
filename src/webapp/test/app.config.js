@@ -2,8 +2,8 @@ window["sap-ui-config"] = {
   libs: "sap.m",
   theme: "sap_belize",
   resourceRoots: {
-    "UI5toLearn": "app",
-    'test': './test',
+    "UI5toLearn": "../../app",
+    'test': './',
     'test.unit': './',
     'test.opa': './'
   },

@@ -1,5 +1,5 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController",
+  "UI5toLearn/controller/BaseController.controller",
   'sap/m/MessageToast'
 ], function (BaseController, MessageToast) {
   "use strict";
@@ -8,17 +8,17 @@ sap.ui.define([
       var oController = BaseController;
       this.onRetrieveData(oController);
 
-      this.getView().byId("coefficient").setValue("1");
+      this.getView().byId("coefficientInput").setValue("1");
     },
 
     onCreateTenant: function (oEvent) {
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered data from the input fields
-      var sRoom = this.getView().byId("room").getValue();
-      var sName = this.getView().byId("name").getValue();
-      var sCounter = this.getView().byId("counter").getValue();
-      var sCoefficient = this.getView().byId("coefficient").getValue();
+      var sRoom = this.getView().byId("roomInput").getValue();
+      var sName = this.getView().byId("nameInput").getValue();
+      var sCounter = this.getView().byId("counterInput").getValue();
+      var sCoefficient = this.getView().byId("coefficientInput").getValue();
 
       //check whether tenant with current counter already exists
       var allExistingTenants = null;
@@ -68,7 +68,9 @@ sap.ui.define([
         };
 
         //set oData to the Model
-        var oDataFromModel = null;
+        var oDataFromModel = {
+          "tenants": []
+        };
         if (this.getModel() != undefined) {
           oDataFromModel = this.getModel().getData();
         }
@@ -96,10 +98,10 @@ sap.ui.define([
     },
 
     onClearFields: function () {
-      this.getView().byId("room").setValue(null);
-      this.getView().byId("name").setValue(null);
-      this.getView().byId("counter").setValue(null);
-      this.getView().byId("coefficient").setValue("1");
+      this.getView().byId("roomInput").setValue(null);
+      this.getView().byId("nameInput").setValue(null);
+      this.getView().byId("counterInput").setValue(null);
+      this.getView().byId("coefficientInput").setValue("1");
     }
   });
 });

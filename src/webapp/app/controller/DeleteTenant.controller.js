@@ -1,5 +1,5 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController",
+  "UI5toLearn/controller/BaseController.controller",
   'sap/m/MessageToast',
   'sap/ui/model/Filter'
 ], function (BaseController, MessageToast, Filter) {
@@ -20,13 +20,13 @@ sap.ui.define([
         if (sTerm) {
           aFilters.push(new Filter("name", sap.ui.model.FilterOperator.EQ, sTerm));
         }
-        this.getView().byId("counter").getBinding("items").filter(aFilters);
+        this.getView().byId("counterComboBox").getBinding("items").filter(aFilters);
       } else {
 
         //if no tenant name is selected, update bindings
-        var oTemplate = this.getView().byId("counter").getBindingInfo("items").template;
-        this.getView().byId("counter").unbindItems();
-        this.getView().byId("counter").bindItems({
+        var oTemplate = this.getView().byId("counterComboBox").getBindingInfo("items").template;
+        this.getView().byId("counterComboBox").unbindItems();
+        this.getView().byId("counterComboBox").bindItems({
           path: "Model>/tenants",
           template: oTemplate
         });
@@ -37,7 +37,7 @@ sap.ui.define([
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered value from the input field
-      var sCounter = this.getView().byId("counter").getValue();
+      var sCounter = this.getView().byId("counterComboBox").getValue();
       if (sCounter == "") {
         var sMessageEnterCounter = bundle.getText("deleteTenantPageMessageEnterCounter");
         MessageToast.show(sMessageEnterCounter);
@@ -58,17 +58,19 @@ sap.ui.define([
 
           var sMessageWasRemoved = bundle.getText("deleteTenantPageMessageWasRemoved");
           MessageToast.show(sMessageWasRemoved);
-        }
 
-        //clear the input field
-        this.getView().byId("counter").setValue(null);
+          //clear the input field
+          this.getView().byId("nameComboBox").setValue(null);
+          this.getView().byId("counterComboBox").setValue(null);
+        }
       }
     },
 
     onNavBackWithoutSaving: function (oEvent) {
 
       //clear the input field
-      this.getView().byId("counter").setValue(null);
+      this.getView().byId("nameComboBox").setValue(null);
+      this.getView().byId("counterComboBox").setValue(null);
 
       //navigate to the Main page
       this.getRouter().navTo("main");
