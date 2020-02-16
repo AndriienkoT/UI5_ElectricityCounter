@@ -10,7 +10,7 @@
   <tnt:ToolPage id="deleteTenant" class="pageStandard">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
-        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
+        <Button id="backButton" icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
           <layoutData>
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
@@ -25,7 +25,7 @@
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel4}"/>
           <ComboBox
-            id="name"
+            id="nameComboBox"
             placeholder="{i18n>deleteTenantPageNamePlaceholder}"
             showSecondaryValues= "true"
             selectionChange="onItemSelected"
@@ -42,7 +42,7 @@
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel5}"/>
           <ComboBox
-            id="counter"
+            id="counterComboBox"
             placeholder="{i18n>deleteTenantPageCounterPlaceholder}"
             showSecondaryValues= "true"
             items="{
@@ -55,7 +55,7 @@
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayStandardBtn">
-        <Button text="{i18n>deleteTenantPageButton}" press="onDeleteTenant" class="customBtnAccept"/>
+        <Button id="deleteButton" text="{i18n>deleteTenantPageButton}" press="onDeleteTenant" class="customBtnAccept"/>
       </l:VerticalLayout>
 
     </tnt:mainContents>

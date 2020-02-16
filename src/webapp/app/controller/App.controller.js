@@ -1,23 +1,23 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController"
+  "UI5toLearn/controller/BaseController.controller"
 ], function (BaseController) {
   "use strict";
 
   return BaseController.extend("UI5toLearn.controller.App", {
 
-    onInit: function () {
+    onInit: async function () {
 
-      jQuery.sap.log.setLevel(jQuery.sap.log.Level.INFO);
-      var oRouter = this.getRouter();
-
-      oRouter.attachBypassed(function (oEvent) {
-        var sHash = oEvent.getParameter("hash");
-        jQuery.sap.log.info("Sorry, but the hash '" + sHash + "' is invalid.", "The resource was not found.");
-      });
-      oRouter.attachRouteMatched(function (oEvent) {
-        var sRouteName = oEvent.getParameter("name");
-        jQuery.sap.log.info("User accessed route " + sRouteName + ", timestamp = " + new Date().getTime());
-      });
+      // jQuery.sap.log.setLevel(jQuery.sap.log.Level.INFO);
+      // var oRouter = this.getRouter();
+      //
+      // oRouter.attachBypassed(function (oEvent) {
+      //   var sHash = oEvent.getParameter("hash");
+      //   jQuery.sap.log.info("Sorry, but the hash '" + sHash + "' is invalid.", "The resource was not found.");
+      // });
+      // oRouter.attachRouteMatched(function (oEvent) {
+      //   var sRouteName = oEvent.getParameter("name");
+      //   jQuery.sap.log.info("User accessed route " + sRouteName + ", timestamp = " + new Date().getTime());
+      // });
 
       var oController = BaseController;
       this.onPrepareIDB(oController);

@@ -14,8 +14,7 @@ sap.ui.define([
     },
 
     getModel: function (oEvent) {
-      var oModel = this.getOwnerComponent().getModel("Model");
-      return oModel;
+      return this.getOwnerComponent().getModel("Model");
     },
 
     getStorage: function (oEvent) {
@@ -125,6 +124,11 @@ sap.ui.define([
           console.error("openDb:", oEvent.target.errorCode);
           console.log("open error");
         };
+
+        request.oncomplete = function () {
+          console.log("All done!");
+          return true;
+        };
       }
     },
 
@@ -151,11 +155,10 @@ sap.ui.define([
     },
 
     onWriteOneTenantToIDB: function (oController, tenant) {
-
       //open the transaction
       var transaction = oController.myDB.transaction(["tenants"], "readwrite");
       transaction.oncomplete = function (oEvent) {
-        console.log("write success");
+        console.log("transaction is open");
       };
 
       transaction.onerror = function (oEvent) {
@@ -166,7 +169,9 @@ sap.ui.define([
       //write to DB
       var objectStore = transaction.objectStore("tenants");
       var request = objectStore.add(tenant);
-      request.onsuccess = function (oEvent) { };
+      request.onsuccess = function (oEvent) {
+        console.log("write success");
+      };
     },
 
     onEditOneTenant: function (oController, sRoom, sName, sCounter, sCoefficient) {

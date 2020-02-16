@@ -1,5 +1,5 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController",
+  "UI5toLearn/controller/BaseController.controller",
   'sap/m/MessageToast',
   'sap/ui/model/Filter'
 ], function (BaseController, MessageToast, Filter) {
@@ -13,11 +13,11 @@ sap.ui.define([
     onItemSelected: function (oEvent) {
       //create array of ids
       var sInputId = oEvent.getParameter("id").split("-")[6];
-      var aIds = ["counter"];
-      if (sInputId == "room") {
-        aIds.push("name");
-      } else if (sInputId == "name") {
-        aIds.push("room");
+      var aIds = ["counterComboBox"];
+      if (sInputId == "roomComboBox") {
+        aIds.push("nameComboBox");
+      } else if (sInputId == "nameComboBox") {
+        aIds.push("roomComboBox");
       }
 
       //filter the bindings of the comboboxes by selected value/s
@@ -26,6 +26,7 @@ sap.ui.define([
         var sTerm = oSelectedItem.getText();
         var aFilters = [];
         if (sTerm) {
+          sInputId = sInputId.substring(0, sInputId.length - 8);
           aFilters.push(new Filter(sInputId, sap.ui.model.FilterOperator.EQ, sTerm));
         }
         aIds.forEach(id => {
@@ -49,10 +50,10 @@ sap.ui.define([
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
       //get entered data from the input fields
-      var sRoom = this.getView().byId("room").getValue();
-      var sName = this.getView().byId("name").getValue();
-      var sCounter = this.getView().byId("counter").getValue();
-      var sCoefficient = this.getView().byId("coefficient").getValue();
+      var sRoom = this.getView().byId("roomComboBox").getValue();
+      var sName = this.getView().byId("nameComboBox").getValue();
+      var sCounter = this.getView().byId("counterComboBox").getValue();
+      var sCoefficient = this.getView().byId("coefficientInput").getValue();
 
       if (sRoom == "" || sName == "" || sCounter == "" || sCoefficient == "") {
         var sMessage = bundle.getText("editTenantPageMessageFields");
@@ -74,7 +75,6 @@ sap.ui.define([
             oTenant.name = sName;
           }
           if(oTenant.coefficient !== sCoefficient){
-
             oTenant.coefficient = sCoefficient;
           }
           allStillExistingTenants.splice(nIndex, 1, oTenant);
@@ -102,10 +102,10 @@ sap.ui.define([
     },
 
     onClearFields: function () {
-      this.getView().byId("room").setValue(null);
-      this.getView().byId("name").setValue(null);
-      this.getView().byId("counter").setValue(null);
-      this.getView().byId("coefficient").setValue(null);
+      this.getView().byId("roomComboBox").setValue(null);
+      this.getView().byId("nameComboBox").setValue(null);
+      this.getView().byId("counterComboBox").setValue(null);
+      this.getView().byId("coefficientInput").setValue(null);
     }
   });
 });

@@ -10,7 +10,7 @@
   <tnt:ToolPage id="createTenant" class="pageStandard">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
-        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
+        <Button id="backButton" icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
           <layoutData>
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
@@ -24,33 +24,33 @@
       <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel3}"/>
-          <Input id="room" value="{/tenants/room}"/>
+          <Input id="roomInput" value="{/tenants/room}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel4}"/>
-          <Input id="name" value="{/tenants/name}"/>
+          <Input id="nameInput" value="{/tenants/name}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel5}"/>
-          <Input id="counter" value="{/tenants/counter}"/>
+          <Input id="counterInput" value="{/tenants/counter}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayStandard">
         <l:HorizontalLayout>
           <Label text="{i18n>tenantLabel6}"/>
-          <Input id="coefficient" value="{/tenants/coefficient}"/>
+          <Input id="coefficientInput" value="{/tenants/coefficient}"/>
         </l:HorizontalLayout>
       </l:VerticalLayout>
 
       <l:VerticalLayout class="verLayStandardBtn">
-        <Button text="{i18n>createTenantPageButton}" press="onCreateTenant" class="customBtnAccept"/>
+        <Button id="saveButton" text="{i18n>createTenantPageButton}" press="onCreateTenant" class="customBtnAccept"/>
       </l:VerticalLayout>
 
     </tnt:mainContents>

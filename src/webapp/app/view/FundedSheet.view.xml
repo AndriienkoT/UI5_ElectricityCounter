@@ -10,7 +10,7 @@
   <tnt:ToolPage id="fundedSheet" class="pageFundedSheet">
     <tnt:header>
       <tnt:ToolHeader class="customHeader">
-        <Button icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
+        <Button id="backButton" icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
           <layoutData>
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>

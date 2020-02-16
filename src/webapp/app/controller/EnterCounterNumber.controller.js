@@ -1,5 +1,5 @@
 sap.ui.define([
-  "UI5toLearn/controller/BaseController"
+  "UI5toLearn/controller/BaseController.controller"
 ], function (BaseController) {
   "use strict";
   return BaseController.extend("UI5toLearn.controller.EnterCounterNumber", {
