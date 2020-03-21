@@ -2,8 +2,10 @@ sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/ui/core/routing/History",
   'sap/ui/model/Sorter',
-  "sap/ui/model/resource/ResourceModel"
-], function (Controller, History, Sorter, ResourceModel) {
+  "sap/ui/model/resource/ResourceModel",
+  "sap/ui/core/util/File",
+  'sap/m/MessageToast'
+], function (Controller, History, Sorter, ResourceModel, File, MessageToast ) {
   "use strict";
   return Controller.extend("UI5toLearn.controller.BaseController", {
     onInit: function () {
@@ -105,13 +107,14 @@ sap.ui.define([
         return null;
       } else {
         //open DB
-        var request = indexedDB.open("MyIDB", 1);
+        var request = indexedDB.open("MyIDB", 2);
 
         //creating or upgrading DB
         request.onupgradeneeded = function (oEvent) {
           var db = oEvent.target.result;
           // create an objectStore for this database
           db.createObjectStore("tenants", { keyPath: "counter" });
+          // db.createObjectStore("DBcopies", { });
           console.log("onupgradeneeded success");
         };
 
@@ -127,7 +130,6 @@ sap.ui.define([
 
         request.oncomplete = function () {
           console.log("All done!");
-          return true;
         };
       }
     },
@@ -240,16 +242,18 @@ sap.ui.define([
     },
 
     onRemoveAllData: function (oController) {
-      var objectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
-      objectStore.openCursor().onsuccess = function(oEvent) {
-        var cursor = oEvent.target.result;
-        if (cursor) {
-          cursor.delete();
-          cursor.continue();
-        } else {
-          console.log("remove all data success");
-        }
+      var oTenantsObjectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
+      var oDBCopiesObjectStore = oController.myDB.transaction(["DBcopies"], "readwrite").objectStore("DBcopies");
+
+      //clear all tenants
+      oTenantsObjectStore.clear().onsuccess = function(oEvent) {
+        console.log("remove all tenants successfully");
       };
+
+      //clear all dates of made copies except last one
+      oDBCopiesObjectStore.delete(IDBKeyRange.lowerBound(0, true)).onsuccess = function(oEvent) {
+          console.log("remove all copies successfully");
+        };
     },
 
     onRetrieveData: function (oController) {
@@ -268,10 +272,97 @@ sap.ui.define([
           oItems.tenants.push(cursor.value);
           cursor.continue();
         } else {
-          console.log("read success");
           that.getModel().setData(oItems);
         }
       };
+    },
+
+    exportToJson: function(oController, sDate) {
+      return new Promise((resolve, reject) => {
+        const exportObject = {};
+        if (oController.myDB.objectStoreNames.length === 0) {
+          //if there is some ObjectStore, change content to JSON format
+          resolve(JSON.stringify(exportObject));
+        } else {
+          const transaction = oController.myDB.transaction(oController.myDB.objectStoreNames, 'readonly');
+          transaction.addEventListener('error', reject);
+
+          //for each ObjectStore add objects from IDB to allObjects array
+          for (const storeName of oController.myDB.objectStoreNames) {
+            const allObjects = [];
+            transaction
+              .objectStore(storeName)
+              .openCursor()
+              .addEventListener('success', event => {
+                const cursor = event.target.result;
+                if (cursor) {
+                  allObjects.push(cursor.value);
+                  cursor.continue();
+                } else {
+                  //if no more values, store is done
+                  exportObject[storeName] = allObjects;
+
+                  //last store was handled
+                  if (oController.myDB.objectStoreNames.length === Object.keys(exportObject).length) {
+                    resolve(JSON.stringify(exportObject));
+                  }
+                }
+              });
+          }
+        }
+      })
+      .then(result => {
+        //save result to the file
+        File.save(result, ("Backup" + sDate), "json", "application/json", "UTF-8");
+        console.log('Backup was saved');
+
+        //and add the date of last copy to the IDB
+        var objectStore = oController.myDB.transaction(["DBcopies"], "readwrite").objectStore("DBcopies");
+        objectStore.put(sDate, 0).onsuccess = function (oEvent) { };
+      })
+      .catch(error => {
+        console.error('Something went wrong during export:', error);
+      });
+    },
+
+    importFromJson: function (oController, json) {
+      return new Promise((resolve, reject) => {
+        const transaction = oController.myDB.transaction(oController.myDB.objectStoreNames, 'readwrite');
+        transaction.addEventListener('error', reject);
+
+        //parse content as JSON
+        var importObject = JSON.parse(json);
+
+        //for each ObjectStore add objects from parsed JSON to the IDB
+        for (const storeName of oController.myDB.objectStoreNames) {
+          let count = 0;
+          for (const toAdd of importObject[storeName]) {
+            const request = transaction.objectStore(storeName).put(toAdd);
+            request.addEventListener('success', () => {
+              count++;
+              if (count === importObject[storeName].length) {
+                // Added all objects for this store
+                delete importObject[storeName];
+                if (Object.keys(importObject).length === 0) {
+                  // Added all object stores
+                  resolve();
+                }
+              }
+            });
+          }
+        }
+      })
+      .then(() => {
+        console.log('Successfully imported data');
+
+        //show a message
+        var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        var sMessage = bundle.getText("importDBPageMessageDBLoaded");
+        MessageToast.show(sMessage);
+      })
+      .catch(error => {
+        console.error('Something went wrong during import:', error);
+      });
     }
   });
 });

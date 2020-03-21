@@ -119,6 +119,11 @@
           "pattern": "fundedSheet",
           "name": "fundedSheet",
           "target": "fundedSheet"
+        },
+        {
+          "pattern": "importDB",
+          "name": "importDB",
+          "target": "importDB"
         }
       ],
       "targets": {
@@ -155,6 +160,11 @@
         "fundedSheet": {
           "viewId": "fundedSheet",
           "viewName": "FundedSheet",
+          "viewLevel": 1
+        },
+        "importDB": {
+          "viewId": "importDB",
+          "viewName": "ImportDB",
           "viewLevel": 1
         }
       }

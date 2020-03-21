@@ -1,0 +1,28 @@
+ .pageImportDB {
+   .sapTntToolPageMainContentWrapper {
+     padding: @page-standard-content-wrapper-padding;
+   }
+   .sapUiVltCell.sapuiVltCell {
+     &:nth-child(1) {
+       margin-bottom: 70px;
+     }
+   }
+   .sapUiHLayoutChildWrapper {
+     &:nth-child(2) {
+       .importDBLabel {
+         font-style: italic;
+         padding-left: 15px;
+         line-height: 48px;
+       }
+     }
+   }
+ }
+ html.sap-desktop {
+   .pageImportDB {
+     .sapMBtn {
+       &:focus>.sapMFocusable {
+         outline: none;
+       }
+     }
+   }
+ }

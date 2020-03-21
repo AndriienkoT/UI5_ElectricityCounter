@@ -1,0 +1,49 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:tnt="sap.tnt"
+  xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.unified"
+  controllerName="UI5toLearn.controller.ImportDB" width="100%" height="100%"
+  displayBlock="true">
+
+  <tnt:ToolPage id="importDB" class="pageImportDB">
+    <tnt:header>
+      <tnt:ToolHeader class="customHeader">
+        <Button id="backButton" icon="sap-icon://nav-back" type="Transparent" class="customHeaderIcon" press="onNavBackWithoutSaving">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+        <Text text="{i18n>importDBPageTitle}" class="customHeaderText" />
+      </tnt:ToolHeader>
+    </tnt:header>
+
+    <tnt:mainContents>
+        <l:VerticalLayout>
+          <l:HorizontalLayout>
+            <Button
+              text="{i18n>importDBPageClearButton}"
+              press="onClearDB"
+              class="customBtnAccept"/>
+            <Label
+              text="{i18n>importDBPageClearLabel}"
+              class="importDBLabel"/>
+          </l:HorizontalLayout>
+
+          <u:FileUploader
+            id="importDBfileUploader"
+            uploadUrl="C:/Users/tandriienko/Downloads/"
+            fileType="json"
+            width="400px"
+            placeholder="{i18n>importDBFileUploaderPlaceholder}"
+            change="onChangeFileUploader"/>
+          <Button
+            text="{i18n>importDBPageUploadButton}"
+            press="handleUploadPress"
+            class="customBtnAccept"/>
+        </l:VerticalLayout>
+    </tnt:mainContents>
+  </tnt:ToolPage>
+
+</mvc:View>

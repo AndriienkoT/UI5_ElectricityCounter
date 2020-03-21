@@ -41,6 +41,12 @@
         </l:VerticalLayout>
       </l:HorizontalLayout>
 
+      <l:HorizontalLayout class="horLayMain">
+        <l:VerticalLayout class="verLayMain">
+          <Link id="importDBLink" text="{i18n>mainPageLink7}" press="goToImportDB" />
+        </l:VerticalLayout>
+      </l:HorizontalLayout>
+
 
     </tnt:mainContents>
   </tnt:ToolPage>

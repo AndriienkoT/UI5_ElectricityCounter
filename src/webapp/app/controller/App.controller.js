@@ -21,11 +21,36 @@ sap.ui.define([
 
       var oController = BaseController;
       this.onPrepareIDB(oController);
+      await new Promise(function(resolve){setTimeout(resolve, 200)});
+      this.onBackupDataIfNeeded(oController);
+    },
+
+    onBackupDataIfNeeded: async function (oController) {
+      var sDayOfLastDataStoring;
+      var nDataStoringMonth;
+
+      var objectStore = oController.myDB.transaction("DBcopies").objectStore("DBcopies");
+      var objectStoreRequest = objectStore.get(0);
+      objectStoreRequest.onsuccess = function(event) {
+        sDayOfLastDataStoring = objectStoreRequest.result;
+      };
+      await new Promise(function(resolve){setTimeout(resolve, 100)});
+
+      if(sDayOfLastDataStoring != undefined) {
+        nDataStoringMonth = parseInt(sDayOfLastDataStoring.split(".")[1]);
+      }
+      var nCurrentDay = new Date().getDate();
+      if(nCurrentDay >= 10) {
+        if(sDayOfLastDataStoring == undefined || (nCurrentMonth == nDataStoringMonth + 1) || (nDataStoringMonth == 12 && nCurrentMonth == 1)) {
+          var nCurrentMonth = new Date().getMonth() + 1;
+          var nCurrentYear = new Date().getYear() - 100 + 2000;
+          var sDate = nCurrentDay + "." + nCurrentMonth + "." + nCurrentYear;
+          this.exportToJson(oController, sDate);
+        }
+      }
     },
 
     goToCreateTenant: function (oEvent) {
-      // var oController = BaseController;
-      // this.onRemoveAllData(oController);
       this.getRouter().navTo("createTenant");
     },
 
@@ -47,6 +72,10 @@ sap.ui.define([
 
     goToFundedSheet: function (oEvent) {
       this.getRouter().navTo("fundedSheet");
+    },
+
+    goToImportDB: function (oEvent) {
+      this.getRouter().navTo("importDB");
     }
   });
 });
