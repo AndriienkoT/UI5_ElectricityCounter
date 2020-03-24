@@ -10,7 +10,7 @@ sap.ui.define([
 
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
 
       this.getView().byId("facetFilterTenant").setModel(this.getModel(),"Model");
       this.getView().byId("facetFilterCounter").setModel(this.getModel(),"Model");
@@ -29,7 +29,7 @@ sap.ui.define([
 
       //update data in the Model
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
       await new Promise(function(resolve){ setTimeout(resolve, 100) });
       var oData = this.getModel().getData().tenants;
       var that = this;
@@ -290,7 +290,7 @@ sap.ui.define([
 
       //update data in the Model
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
       await new Promise(function(resolve){ setTimeout(resolve, 100) });
       this.onRemoveColumns();
 

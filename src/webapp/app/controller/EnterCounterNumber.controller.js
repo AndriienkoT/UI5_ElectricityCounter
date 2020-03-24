@@ -5,7 +5,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.EnterCounterNumber", {
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
 
       //set current year and month as selected
       var nMonth = new Date().getMonth();
@@ -151,7 +151,7 @@ sap.ui.define([
       aItems.forEach(item => {
         item.getAggregation("cells")[4].setValue(null);
         item.getAggregation("cells")[5].setText(null);
-      })
+      });
 
       //set current year and month as selected
       var nMonth = new Date().getMonth();

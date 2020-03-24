@@ -5,7 +5,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.CreatePDF", {
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
 
       //set current year and month as selected
       var nMonth = new Date().getMonth();

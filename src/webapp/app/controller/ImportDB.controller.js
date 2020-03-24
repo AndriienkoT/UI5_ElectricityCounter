@@ -8,7 +8,7 @@ sap.ui.define([
     onClearDB: function () {
       //remove all data except the last date of a made copy
       var oController = BaseController;
-      this.onRemoveAllData(oController);
+      this.onRemoveAllData(oController, "tenants");
 
       //show message
       var bundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
@@ -29,7 +29,7 @@ sap.ui.define([
           var fileContent = e.target.result;
 
           //import read content
-          that.importFromJson(oController, fileContent);
+          that.onImportFromJson(oController, fileContent);
         };
         oReader.readAsText(oFile);
       }
@@ -42,17 +42,8 @@ sap.ui.define([
       //navigate to the Main page
       this.getRouter().navTo("main");
 
-      //get the Main page and reload it
-      var aPages = this.getView().oParent.getAggregation("pages");
-      var oView;
-      aPages.forEach(page => {
-        if (page.getProperty("viewName") == "UI5toLearn.view.Main") {
-          oView = page;
-        }
-      });
-      if(oView != undefined) {
-        window.location.reload();
-      }
+      //reload Main page
+      this.onReloadMainPage();
     }
   });
 });

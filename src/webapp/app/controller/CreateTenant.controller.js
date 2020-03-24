@@ -6,7 +6,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.CreateTenant", {
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
 
       this.getView().byId("coefficientInput").setValue("1");
     },
@@ -79,7 +79,7 @@ sap.ui.define([
 
         //set oData to the IDB
         var oController = BaseController;
-        this.onWriteOneTenantToIDB(oController, oData);
+        this.onWriteOneObjectToIDB(oController, "tenants", oData);
 
         var sMessageWasAdded = bundle.getText("createTenantPageMessageWasAdded");
         MessageToast.show(sMessageWasAdded);
@@ -95,6 +95,9 @@ sap.ui.define([
 
       //navigate to the Main page
       this.getRouter().navTo("main");
+
+      //reload Main page
+      this.onReloadMainPage();
     },
 
     onClearFields: function () {

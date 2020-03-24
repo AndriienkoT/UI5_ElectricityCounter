@@ -7,7 +7,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.EditTenant", {
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
     },
 
     onItemSelected: function (oEvent) {
@@ -99,6 +99,9 @@ sap.ui.define([
 
       //navigate to the Main page
       this.getRouter().navTo("main");
+
+      //reload Main page
+      this.onReloadMainPage();
     },
 
     onClearFields: function () {

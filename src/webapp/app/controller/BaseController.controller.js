@@ -39,6 +39,19 @@ sap.ui.define([
       }
     },
 
+    onReloadMainPage: function () {
+      var aPages = this.getView().oParent.getAggregation("pages");
+      var oView;
+      aPages.forEach(page => {
+        if (page.getProperty("viewName") == "UI5toLearn.view.Main") {
+          oView = page;
+        }
+      });
+      if(oView != undefined) {
+        window.location.reload();
+      }
+    },
+
     onSortTableData: function (oTable) {
       var oBinding = oTable.getBinding("items");
       var oSorter = new Sorter("room", null);
@@ -100,7 +113,7 @@ sap.ui.define([
     },
 
     /////////////////////////////////////////////IDB
-    onPrepareIDB: function (oController) {
+    onPrepareIDB: function (oController, sObjectStoreName, sKey) {
 
       //check weather offline store is supported
       if (indexedDB == null) {
@@ -113,8 +126,8 @@ sap.ui.define([
         request.onupgradeneeded = function (oEvent) {
           var db = oEvent.target.result;
           // create an objectStore for this database
-          db.createObjectStore("tenants", { keyPath: "counter" });
-          // db.createObjectStore("DBcopies", { });
+          db.createObjectStore(sObjectStoreName, { keyPath: sKey });
+          db.createObjectStore("DBcopies", { });
           console.log("onupgradeneeded success");
         };
 
@@ -134,43 +147,41 @@ sap.ui.define([
       }
     },
 
-    onWriteAllDataToIDB: function (oController) {
-      var oObjects = this.getModel().getData().tenants;
+    // onWriteAllDataToIDB: function (oController, sObjectStoreName) {
+    //   var oObjects = this.getModel().getData()[sObjectStoreName];
+    //
+    //   //open the transaction
+    //   var transaction = oController.myDB.transaction([sObjectStoreName], "readwrite");
+    //
+    //   transaction.oncomplete = function (oEvent) {
+    //     console.log("write success");
+    //   };
+    //   transaction.onerror = function (oEvent) {
+    //     console.log("Error", oEvent.target.error.name);
+    //   };
+    //
+    //   //write to DB
+    //   var objectStore = transaction.objectStore(sObjectStoreName);
+    //   oObjects.forEach(object => {
+    //     var request = objectStore.add(object);
+    //     request.onsuccess = function (oEvent) { };
+    //   });
+    // },
 
+    onWriteOneObjectToIDB: function (oController, sObjectStoreName, object) {
       //open the transaction
-      var transaction = oController.myDB.transaction(["tenants"], "readwrite");
-
-      transaction.oncomplete = function (oEvent) {
-        console.log("write success");
-      };
-      transaction.onerror = function (oEvent) {
-        console.log("Error", oEvent.target.error.name);
-        console.log("write error");
-      };
-
-      //write to DB
-      var objectStore = transaction.objectStore("tenants");
-      oObjects.forEach(tenant => {
-        var request = objectStore.add(tenant);
-        request.onsuccess = function (oEvent) { };
-      });
-    },
-
-    onWriteOneTenantToIDB: function (oController, tenant) {
-      //open the transaction
-      var transaction = oController.myDB.transaction(["tenants"], "readwrite");
+      var transaction = oController.myDB.transaction([sObjectStoreName], "readwrite");
       transaction.oncomplete = function (oEvent) {
         console.log("transaction is open");
       };
 
       transaction.onerror = function (oEvent) {
         console.log("Error", oEvent.target.error.name);
-        console.log("write error");
       };
 
       //write to DB
-      var objectStore = transaction.objectStore("tenants");
-      var request = objectStore.add(tenant);
+      var objectStore = transaction.objectStore(sObjectStoreName);
+      var request = objectStore.add(object);
       request.onsuccess = function (oEvent) {
         console.log("write success");
       };
@@ -214,8 +225,7 @@ sap.ui.define([
 
       //get tenant by key
       var request = objectStore.get(sCounter);
-      request.onerror = function(event) {
-      };
+      request.onerror = function(event) { };
       request.onsuccess = function(oEvent) {
         var tenant = oEvent.target.result;
 
@@ -234,20 +244,20 @@ sap.ui.define([
       };
     },
 
-    onRemoveOneTenant: function (oController, sCounter) {
-      var request = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants").delete(sCounter);
+    onRemoveOneObject: function (oController, sObjectStoreName, sKey) {
+      var request = oController.myDB.transaction([sObjectStoreName], "readwrite").objectStore(sObjectStoreName).delete(sKey);
       request.onsuccess = function(oEvent) {
-        console.log("remove one tenant success");
+        console.log("remove one object success");
       };
     },
 
-    onRemoveAllData: function (oController) {
-      var oTenantsObjectStore = oController.myDB.transaction(["tenants"], "readwrite").objectStore("tenants");
+    onRemoveAllData: function (oController, sObjectStoreName) {
+      var oMainObjectStore = oController.myDB.transaction([sObjectStoreName], "readwrite").objectStore(sObjectStoreName);
       var oDBCopiesObjectStore = oController.myDB.transaction(["DBcopies"], "readwrite").objectStore("DBcopies");
 
       //clear all tenants
-      oTenantsObjectStore.clear().onsuccess = function(oEvent) {
-        console.log("remove all tenants successfully");
+      oMainObjectStore.clear().onsuccess = function(oEvent) {
+        console.log("remove all main data successfully");
       };
 
       //clear all dates of made copies except last one
@@ -256,20 +266,20 @@ sap.ui.define([
         };
     },
 
-    onRetrieveData: function (oController) {
+    onRetrieveData: function (oController, sObjectStoreName) {
 
       //get the object store
-      var objectStore = oController.myDB.transaction("tenants").objectStore("tenants");
-      var oItems = {
-        "tenants": []
-      };
+      var objectStore = oController.myDB.transaction(sObjectStoreName).objectStore(sObjectStoreName);
+      var oItems = {};
+      oItems[sObjectStoreName] = [];
 
       //pushing data to the item array
       var that = this;
       objectStore.openCursor().onsuccess = function(oEvent) {
         var cursor = oEvent.target.result;
         if (cursor) {
-          oItems.tenants.push(cursor.value);
+          // oItems.tenants.push(cursor.value);
+          oItems[sObjectStoreName].push(cursor.value);
           cursor.continue();
         } else {
           that.getModel().setData(oItems);
@@ -277,7 +287,7 @@ sap.ui.define([
       };
     },
 
-    exportToJson: function(oController, sDate) {
+    onExportToJson: function(oController, sDate) {
       return new Promise((resolve, reject) => {
         const exportObject = {};
         if (oController.myDB.objectStoreNames.length === 0) {
@@ -290,24 +300,21 @@ sap.ui.define([
           //for each ObjectStore add objects from IDB to allObjects array
           for (const storeName of oController.myDB.objectStoreNames) {
             const allObjects = [];
-            transaction
-              .objectStore(storeName)
-              .openCursor()
-              .addEventListener('success', event => {
-                const cursor = event.target.result;
-                if (cursor) {
-                  allObjects.push(cursor.value);
-                  cursor.continue();
-                } else {
-                  //if no more values, store is done
-                  exportObject[storeName] = allObjects;
+            transaction.objectStore(storeName).openCursor().addEventListener('success', event => {
+              const cursor = event.target.result;
+              if (cursor) {
+                allObjects.push(cursor.value);
+                cursor.continue();
+              } else {
+                //if no more values, store is done
+                exportObject[storeName] = allObjects;
 
-                  //last store was handled
-                  if (oController.myDB.objectStoreNames.length === Object.keys(exportObject).length) {
-                    resolve(JSON.stringify(exportObject));
-                  }
+                //last store was handled
+                if (oController.myDB.objectStoreNames.length === Object.keys(exportObject).length) {
+                  resolve(JSON.stringify(exportObject));
                 }
-              });
+              }
+            });
           }
         }
       })
@@ -325,7 +332,7 @@ sap.ui.define([
       });
     },
 
-    importFromJson: function (oController, json) {
+    onImportFromJson: function (oController, json) {
       return new Promise((resolve, reject) => {
         const transaction = oController.myDB.transaction(oController.myDB.objectStoreNames, 'readwrite');
         transaction.addEventListener('error', reject);

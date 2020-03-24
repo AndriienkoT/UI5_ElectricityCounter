@@ -20,7 +20,7 @@ sap.ui.define([
       // });
 
       var oController = BaseController;
-      this.onPrepareIDB(oController);
+      this.onPrepareIDB(oController, "tenants", "counter");
       await new Promise(function(resolve){setTimeout(resolve, 200)});
       this.onBackupDataIfNeeded(oController);
     },
@@ -45,7 +45,7 @@ sap.ui.define([
           var nCurrentMonth = new Date().getMonth() + 1;
           var nCurrentYear = new Date().getYear() - 100 + 2000;
           var sDate = nCurrentDay + "." + nCurrentMonth + "." + nCurrentYear;
-          this.exportToJson(oController, sDate);
+          this.onExportToJson(oController, sDate);
         }
       }
     },

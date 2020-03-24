@@ -7,7 +7,7 @@ sap.ui.define([
   return BaseController.extend("UI5toLearn.controller.DeleteTenant", {
     onInit: function () {
       var oController = BaseController;
-      this.onRetrieveData(oController);
+      this.onRetrieveData(oController, "tenants");
     },
 
     onItemSelected: function (oEvent) {
@@ -54,7 +54,7 @@ sap.ui.define([
 
           //delete tenant from IDB
           var oController = BaseController;
-          this.onRemoveOneTenant(oController, sCounter);
+          this.onRemoveOneObject(oController, "tenants", sCounter);
 
           var sMessageWasRemoved = bundle.getText("deleteTenantPageMessageWasRemoved");
           MessageToast.show(sMessageWasRemoved);
@@ -74,6 +74,9 @@ sap.ui.define([
 
       //navigate to the Main page
       this.getRouter().navTo("main");
+
+      //reload Main page
+      this.onReloadMainPage();
     }
   });
 });
